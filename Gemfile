@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 
-gem 'rails', '4.2.0.beta2'
+gem 'rails', '4.2.4'
 gem 'pg'
 gem 'sass-rails', '~> 5.0.0.beta1'
 gem 'uglifier', '>= 1.3.0'
@@ -28,4 +28,8 @@ group :production do
 end
 
 gem 'slim-rails'
+gem 'activeadmin', github: 'activeadmin'
+gem 'devise'
+gem 'paperclip'
+gem 'aws-sdk'
 
