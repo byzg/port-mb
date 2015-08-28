@@ -6,7 +6,6 @@ gem 'pg'
 gem 'sass-rails', '~> 5.0.0.beta1'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
-gem 'jquery-rails', '~> 4.0.0.beta2'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -33,4 +32,5 @@ gem 'activeadmin', github: 'activeadmin'
 gem 'devise'
 gem 'paperclip'
 gem 'aws-sdk-v1'
+gem 'non-stupid-digest-assets'
 

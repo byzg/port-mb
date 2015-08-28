@@ -12,5 +12,4 @@
 /tmp
 /.idea
 /port-mb-site
-/config/s3.yml
 .env

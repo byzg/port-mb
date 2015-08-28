@@ -1,0 +1,14 @@
+//= require semantic/jquery.mb.YTPlayer.min
+//= require semantic/appear
+//= require semantic/jquery.simple-text-rotator.min
+//= require semantic/jqBootstrapValidation
+//= require semantic/gmaps
+//= require semantic/isotope.pkgd.min
+//= require semantic/imagesloaded.pkgd
+//= require semantic/jquery.flexslider-min
+//= require semantic/jquery.magnific-popup.min
+//= require semantic/jquery.fitvids
+//= require semantic/smoothscroll
+//= require semantic/wow.min
+//= require semantic/contact
+//= require semantic/custom
