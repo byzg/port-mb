@@ -141,6 +141,7 @@ GEM
     pg (0.18.2)
     polyamorous (1.2.0)
       activerecord (>= 3.0)
+    puma (2.13.4)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -243,6 +244,7 @@ DEPENDENCIES
   non-stupid-digest-assets
   paperclip
   pg
+  puma
   rails (= 4.2.4)
   rails_12factor
   sass-rails (~> 5.0.0.beta1)

@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+ruby '2.1.5'
 
 gem 'rails', '4.2.4'
 gem 'pg'
@@ -33,4 +33,5 @@ gem 'devise'
 gem 'paperclip'
 gem 'aws-sdk-v1'
 gem 'non-stupid-digest-assets'
+gem 'puma'
 
