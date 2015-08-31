@@ -233,118 +233,8 @@ html
                   a.wow.fadeInUp data-filter=".photography" data-wow-delay="0.6s" href="#"  Photography
                 li
                   a.wow.fadeInUp data-filter=".webdesign" data-wow-delay="0.8s" href="#"  Web Design
-          /! /PORTFOLIO FILTER
-        /! PORTFOLIO LIST
-        ul#works-grid.works-grid.works-grid-masonry.works-grid-3.works-hover-w
-          /! PORTFOLIO ITEM
-          li.work-item.illustration.webdesign
-            a href="portfolio-single-1.html"
-            .work-image
-              img alt="" src="assets/semantic/work-masonry-1.jpg" /
-            .work-caption
-              h3.work-title.font-alt Corporate Identity
-              .work-descr.font-inc
-                | Illustration
-          /! /PORTFOLIO ITEM
-          /! PORTFOLIO ITEM
-          li.work-item.marketing.photography
-            a href="portfolio-single-1.html"
-            .work-image
-              img alt="" src="assets/semantic/work-2.jpg" /
-            .work-caption
-              h3.work-title.font-alt Bag MockUp
-              .work-descr.font-inc
-                | Marketing
-          /! /PORTFOLIO ITEM
-          /! PORTFOLIO ITEM
-          li.work-item.illustration.photography
-            a href="portfolio-single-1.html"
-            .work-image
-              img alt="" src="assets/semantic/work-3.jpg" /
-            .work-caption
-              h3.work-title.font-alt Disk Cover
-              .work-descr.font-inc
-                | Illustration
-          /! /PORTFOLIO ITEM
-          /! PORTFOLIO ITEM
-          li.work-item.marketing.photography
-            a href="portfolio-single-1.html"
-            .work-image
-              img alt="" src="assets/semantic/work-4.jpg" /
-            .work-caption
-              h3.work-title.font-alt Business Card
-              .work-descr.font-inc
-                | Photography
-          /! /PORTFOLIO ITEM
-          /! PORTFOLIO ITEM
-          li.work-item.illustration.webdesign
-            a href="portfolio-single-1.html"
-            .work-image
-              img alt="" src="assets/semantic/work-masonry-2.jpg" /
-            .work-caption
-              h3.work-title.font-alt Business Cards
-              .work-descr.font-inc
-                | Webdesign
-          /! /PORTFOLIO ITEM
-          /! PORTFOLIO ITEM
-          li.work-item.marketing.webdesign
-            a href="portfolio-single-1.html"
-            .work-image
-              img alt="" src="assets/semantic/work-6.jpg" /
-            .work-caption
-              h3.work-title.font-alt Business Cards in paper clip
-              .work-descr.font-inc
-                | Marketing
-          /! /PORTFOLIO ITEM
-          /! PORTFOLIO ITEM
-          li.work-item.marketing.webdesign
-            a href="portfolio-single-1.html"
-            .work-image
-              img alt="" src="assets/semantic/work-7.jpg" /
-            .work-caption
-              h3.work-title.font-alt Business Cards in paper clip
-              .work-descr.font-inc
-                | Marketing
-          /! /PORTFOLIO ITEM
-        /! /PORTFOLIO LIST
-      /! /PORTFOLIO
-      /! TESTIMONIAL
-      section.module-small
-        .container
-          .row
-            /! MODULE TITLE
-            .col-sm-6
-              h2.module-title.font-alt Someone quote
-            /! /MODULE TITLE
-            /! BLOCKQUOTE
-            .col-sm-6
-              blockquote.font-serif.align-right
-                p The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators.
-                p.font-inc.font-uppercase - Thomas Anderson
-            /! /BLOCKQUOTE
-      /! /TESTIMONIAL
-      /! ABOUT
-      section.module.p-t-0.p-b-0 data-background="assets/semantic/section-4.jpg"
-        .container-fluid
-          .row.relative
-            .col-sm-12.col-md-6.col-md-offset-6.col-bg
-              h2.module-title.font-alt About
-              .module-subtitle.font-inc
-                | Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
-              p The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators.
-              p To achieve this, it would be necessary to have uniform grammar, pronunciation and more common words. If several languages coalesce, the grammar of the resulting language is more simple and regular than that of the individual languages.
-              ul.social-list
-                li
-                  a href="#"
-                    span.icon-facebook
-                li
-                  a href="#"
-                    span.icon-twitter
-                li
-                  a href="#"
-                    span.icon-googleplus
-      /! /ABOUT
-      /! CONTACT
+        = yield
+      
       section.module-small
         .container
           .row
@@ -385,8 +275,5 @@ html
     .scroll-up
       a href="#totop"
         i.fa.fa-angle-double-up
-
-
-    = yield
 
     = javascript_include_tag 'application', 'data-turbolinks-track' => true

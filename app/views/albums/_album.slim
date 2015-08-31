@@ -1,0 +1,7 @@
+li.work-item.illustration.webdesign
+  = link_to album_path(album) do
+    .work-image
+      = image_tag album.cover.image.url(:medium)
+    .work-caption
+      h3.work-title.font-alt= album.name
+      .work-descr.font-inc= album.name

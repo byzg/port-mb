@@ -25,6 +25,10 @@ group :production do
   gem 'rails_12factor'
 end
 
+source 'https://rails-assets.org' do
+  gem 'rails-assets-cropper'
+end
+
 gem 'slim-rails'
 gem 'activeadmin', github: 'activeadmin'
 gem 'devise'

@@ -1,5 +1,5 @@
 ActiveAdmin.register Album do
-  # permit_params :image
+  permit_params :album_id, :cover_id, :name, :priority
   scope :all
   scope('По иерархии', default: true) {|scope| scope.where(album_id: nil)}
   
@@ -12,6 +12,20 @@ ActiveAdmin.register Album do
       end
     end
   end
+
+  # controller do 
+  #   def create
+  #     super do |format|
+  #       redirect_to collection_url and return if resource.valid?
+  #     end
+  #   end
+
+  #   def update
+  #     super do |format|
+  #       redirect_to collection_url and return if resource.valid?
+  #     end
+  #   end
+  # end
   
   # form do |f|
   #   f.inputs do
