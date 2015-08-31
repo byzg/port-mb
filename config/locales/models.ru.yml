@@ -1,0 +1,17 @@
+ru:
+  activerecord:
+    models:
+     album: 'Альбом'
+     photo: 'Фото'
+    attributes:
+      album:
+        name: 'Название'
+    errors:
+      models:
+        photo:
+          attributes:
+            album_id:
+              should_deepest: ' может находиться лишь в альбоме, не имеющем альбомов'
+      messages:
+        record_invalid: 'Запись недействительна'
+        blank: '- поле не может быть пустым'

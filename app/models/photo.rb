@@ -5,4 +5,16 @@ class Photo < ActiveRecord::Base
   )
   validates_attachment_content_type :image,
                                     content_type: /\Aimage\/.*\Z/
+
+  belongs_to :album
+
+  validate :check_album_level
+
+
+  private
+
+  def check_album_level
+    errors.add :album_id, :should_deepest if album.try(:children).try(:present?)
+  end
+  
 end
