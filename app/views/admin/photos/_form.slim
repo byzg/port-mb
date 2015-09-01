@@ -1,0 +1,22 @@
+= semantic_form_for :photo do |f|  
+  = f.inputs do
+    - if resource.image.exists?
+      / = f.semantic_errors
+      .img-container
+        img src="#{resource.image.url(:medium)}"
+      style
+        | .img-container {
+        |   width: 30%;
+        | }
+        | .preview-container, .img-preview {
+        |    width: 160px;
+        |    height: 90px;
+        |    overflow: hidden;
+        | }
+      .preview-container
+        .img-preview.preview-lg
+      = f.input :description, as: :string
+      = f.input :album, as: :select, collection: Album.deepest.pluck(:name, :id)
+    - else
+      = f.input :image, as: :file
+  = f.submit 'Сохранить фото'

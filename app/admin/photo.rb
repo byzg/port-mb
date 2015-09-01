@@ -11,19 +11,15 @@ ActiveAdmin.register Photo do
       end
     end
   end
+  
+  form partial: 'form' 
 
-  form do |f|
-    f.semantic_errors
-    f.inputs do
-      if resource.image.exists?
-        img src: photo.image.url(:medium)
-      else
-        f.input :image, as: :file
+  controller do 
+    def create
+      super do |format|
+        redirect_to edit_admin_photo_path(resource) and return if resource.valid?
       end
-      f.input :description, as: :string
-      f.input :album, as: :select, collection: Album.deepest.pluck(:name, :id)
     end
-    actions
-  end  
+  end
   
 end
