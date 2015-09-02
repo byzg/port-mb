@@ -1,4 +1,4 @@
-= semantic_form_for :photo, url: admin_photos_path do |f|
+= semantic_form_for :photo, url: admin_photos_path, html: {'data-ratio' => resource.ratio} do |f|
   = f.inputs do
     - if resource.image.exists?
       / = f.semantic_errors
@@ -6,7 +6,9 @@
         section.img-container
           img src="#{resource.image.url(:medium)}"
         section.preview-container
+          img src="#{resource.image.url(:grid)}"
           .img-preview.preview-lg
+          button Save
       = f.input :description, as: :string
       = f.input :album, as: :select, collection: Album.deepest.pluck(:name, :id)
     - else

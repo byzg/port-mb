@@ -27,6 +27,7 @@ end
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-cropper'
+  gem 'rails-assets-blueimp-canvas-to-blob'
 end
 
 gem 'slim-rails'
@@ -34,8 +35,11 @@ gem 'activeadmin', github: 'activeadmin'
 gem 'devise'
 gem 'devise-i18n'
 gem 'paperclip'
+gem 'paperclip-meta'
 gem 'aws-sdk-v1'
 gem 'non-stupid-digest-assets'
 gem 'puma'
 gem 'quiet_assets'
+gem 'gon'
+gem 'lodash-rails'
 

@@ -1,12 +1,5 @@
 class Photo < ActiveRecord::Base
-  COMPACT_STYLES = {
-      horizontal: {
-          seven: '528.313x637'
-      },
-      vertical: {
-          seven: '528.313x139'
-      }
-  }
+  RATIOS = { horizontal: '674.5x407', vertical: '674.5x814' }
   has_attached_file(
       :image,
       styles: lambda { |attachment| attachment.instance.styles }
@@ -18,10 +11,17 @@ class Photo < ActiveRecord::Base
 
   validate :check_album_level
 
-  # attr_accessor :
-
   def styles
-    {medium: '500x500>', small: '50x50>'}
+    {medium: '500x500>'}.merge({grid: Photo::RATIOS[orient]})
+  end
+
+  def ratio
+    width, height = Photo::RATIOS[orient].scan(/\d+.?\d+/).map(&:to_f)
+    width / height
+  end
+
+  def orient
+    image.aspect_ratio > 1 ? :horizontal : :vertical
   end
 
   private
