@@ -3,8 +3,8 @@ $ ->
 
     if $('body.edit').length > 0
 
-      $(".img-container > img").cropper
-        aspectRatio: 16 / 9,
+      $("section.img-container > img").cropper
+        aspectRatio: 528.313 / 339,
         preview: ".img-preview",
         crop: (e)->
           console.log e.width
