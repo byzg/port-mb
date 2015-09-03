@@ -4,6 +4,9 @@ $ ->
     if $('body.edit').length > 0
 
       class Cropping
+        #  не делаять рейбейз этой ветки! если понадобился
+        #  кроппер то просто перенести весь необходимый код 
+        #  из этой ветки
         constructor: (sltrs)->
           _.each sltrs, (sltr, key)=> @["$#{key}"] = $(sltr)
           @ratio = @$source.closest('form').data('ratio')
