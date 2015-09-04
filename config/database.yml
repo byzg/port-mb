@@ -16,3 +16,6 @@ test: &test
 production:
   <<: *default
   database: port-mb_production
+
+cucumber:
+  <<: *test

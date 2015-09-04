@@ -2,13 +2,7 @@
   = f.inputs do
     - if resource.image.exists?
       / = f.semantic_errors
-      .cropping
-        section.img-container
-          img src="#{resource.image.url(:medium)}"
-        section.preview-container
-          img src="#{resource.image.url(:grid)}"
-          .img-preview.preview-lg
-          button Save
+      img src="#{resource.image.url(:grid)}"
       = f.input :description, as: :string
       = f.input :album, as: :select, collection: Album.deepest.pluck(:name, :id)
     - else

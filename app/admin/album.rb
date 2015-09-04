@@ -13,26 +13,4 @@ ActiveAdmin.register Album do
     end
   end
 
-  # controller do 
-  #   def create
-  #     super do |format|
-  #       redirect_to collection_url and return if resource.valid?
-  #     end
-  #   end
-
-  #   def update
-  #     super do |format|
-  #       redirect_to collection_url and return if resource.valid?
-  #     end
-  #   end
-  # end
-  
-  # form do |f|
-  #   f.inputs do
-  #     f.input :image, as: :file
-  #     f.input :description, as: :string
-  #   end
-  #   f.submit
-  # end
-
 end

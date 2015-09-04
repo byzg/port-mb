@@ -16,19 +16,31 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   # Call 'debugger' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'dotenv-rails'
+end
+
+group :test do
+  gem 'selenium-webdriver'
+  gem 'rspec-rails'
+  gem 'rspec-expectations'
+  gem 'cucumber'
+  gem 'cucumber-rails', :require => false
+  gem 'mocha', :require => false
+  gem 'webmock'
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+  gem 'poltergeist'
+  gem 'spring-commands-cucumber'
 end
 
 group :production do
   gem 'rails_12factor'
 end
 
-source 'https://rails-assets.org' do
-  gem 'rails-assets-cropper'
-  gem 'rails-assets-blueimp-canvas-to-blob'
-end
+# source 'https://rails-assets.org' do
+# end
 
 gem 'slim-rails'
 gem 'activeadmin', github: 'activeadmin'
