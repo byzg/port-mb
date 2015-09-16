@@ -31,7 +31,8 @@ $ ->
       @global = @globalCnt.find('select')
       setEmptyLabel('Поместить все в альбом')
       @global.selectpicker()
-      @globalCnt.find('.ok').click =>
+      $submitter = @globalCnt.find('.ok')
+      $submitter.click =>
         @globalChange = true
         val = @global.val()
         data = _.map @collection, (pair)-> {id: pair.resourceId, album_id: val}
@@ -40,10 +41,11 @@ $ ->
           type: 'PUT'
           data: {photos: data}
           dataType: 'json'
-        .done =>
+        .always =>
           _.each @collection, (pair)=>
             pair.select.val(val)
             pair.select.selectpicker('render')
+          $submitter.prop('disabled', true)
           @globalChange = false
       @global.change =>
         val = @global.val()
