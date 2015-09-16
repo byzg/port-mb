@@ -1,5 +1,5 @@
 class Photo < ActiveRecord::Base
-  RATIOS = { horizontal: '674.5x407', vertical: '674.5x814' }
+  RATIOS = { horizontal: '674x407#', vertical: '674x814#' }
   has_attached_file(
       :image,
       styles: lambda { |attachment| attachment.instance.styles }
@@ -9,19 +9,23 @@ class Photo < ActiveRecord::Base
 
   belongs_to :album
 
+  validates :image, presence: true
   validate :check_album_level
 
   def styles
     {medium: '500x500>'}.merge({grid: Photo::RATIOS[orient]})
   end
 
-  def ratio
-    width, height = Photo::RATIOS[orient].scan(/\d+.?\d+/).map(&:to_f)
-    width / height
-  end
-
   def orient
-    image.aspect_ratio > 1 ? :horizontal : :vertical
+    if new_record?
+      tempfile = image.queued_for_write[:original]
+      tempfile.nil?
+      geometry = Paperclip::Geometry.from_file(tempfile)
+      width, height = [geometry.width.to_i, geometry.height.to_i]
+      width > height ? :horizontal : :vertical
+    else
+      image.aspect_ratio > 1 ? :horizontal : :vertical
+    end
   end
 
   private

@@ -54,4 +54,7 @@ gem 'puma'
 gem 'quiet_assets'
 gem 'gon'
 gem 'lodash-rails'
-
+gem 'jquery-fileupload-rails'
+gem 'bootstrap-sass', '~> 3.3.5'
+gem 'bootstrap-select-rails'
+gem 'rack-jquery-params', require: 'rack/jquery-params', github: 'byzg/rack-jquery-params'

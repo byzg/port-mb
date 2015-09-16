@@ -16,15 +16,12 @@ body.admin_photos, body.admin_albums
         overflow: hidden
         min-height: 18px
 
-  &.edit
-    .cropping
-      section
-        display: inline-block
-      section.img-container:first-child
-        width: 30%
-      section.preview-container
-        vertical-align: top
-        width: 68%
-        .img-preview
-          height: 170px
-          overflow: hidden
+  &.new
+    form
+      display: none
+    .uploaded > .photo
+      margin-left: 0
+      margin-right: 0
+      .actions
+        margin-top: 5px
+
