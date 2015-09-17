@@ -3,8 +3,7 @@ $ ->
     setEmptyLabel = (text)->
       (($) ->$.fn.selectpicker.defaults = noneSelectedText: text)(jQuery)
 
-    constructor: (@resourceName)->
-      
+    constructor: (@resourceName)->      
       @collection = []
 
     push: ($select, resourceId, currentAlbumId)=>
@@ -18,7 +17,7 @@ $ ->
       $select.change =>
         unless @globalChange
           val = $select.val()
-          data = "{\"#{@resourceName}\": {\"album_id\": #{val}}}"
+          data = "{\"#{@resourceName}\": {\"album_id\": \"#{val}\"}}"
           data = $.parseJSON data
           $.ajax 
             url: "/admin/#{@resourceName}s/#{resourceId}"
@@ -35,7 +34,8 @@ $ ->
       $submitter.click =>
         @globalChange = true
         val = @global.val()
-        data = _.map @collection, (pair)-> {id: pair.resourceId, album_id: val}
+        data = _.map @collection, (pair)->
+          {id: pair.resourceId, album_id: val}
         $.ajax
           url: '/admin/photos/albumable'
           type: 'PUT'
