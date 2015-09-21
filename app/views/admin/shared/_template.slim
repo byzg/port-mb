@@ -1,6 +1,6 @@
 .col-xs-6.col-sm-6.col-md-4.photo.template style='display: none'
-  - if defined?(photo) && photo
-    .meta.hide= photo.as_json(only: [:id, :name, :description, :album_id], methods: :grid).to_json
+  - if defined?(resource) && resource
+    .meta.hide= resource.as_json(meta_opts).to_json
   .thumbnail
     = image_tag 'loading.gif'
     .caption

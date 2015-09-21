@@ -100,7 +100,7 @@ $ ->
           @$template.show()
 
         fillData: ->
-          @$img.attr('src', @photo.grid)
+          @$img.attr('src', @photo.medium)
           for medit in ['name', 'description']
             $elem = @["$#{medit}"]
             labelEmpty = $elem.html()

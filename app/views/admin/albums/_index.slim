@@ -1,0 +1,5 @@
+.container-fluid
+  = render partial: 'admin/shared/template',
+     collection: collection,
+     as: :resource,
+     locals: {meta_opts: {only: [:id, :name, :description, :album_id], methods: :medium}, path_from_img: '#'}
