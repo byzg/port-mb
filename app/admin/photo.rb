@@ -2,23 +2,23 @@ ActiveAdmin.register Photo do
   config.clear_sidebar_sections!
   permit_params :description, :album_id, :image, :name
 
-  index as: :block do |photo|
-    # a href: edit_admin_photo_path(photo) do
-    span for: photo do
-      resource_selection_cell photo
-      img src: photo.image.url(:medium)
-      div photo.description, class: :description
-    end
-    # end
+  # index as: :block do |photo|
+  #   # a href: edit_admin_photo_path(photo) do
+  #   span for: photo do
+  #     resource_selection_cell photo
+  #     img src: photo.image.url(:medium)
+  #     div photo.description, class: :description
+  #   end
+  #   # end
+  # end
+  index do
+    render partial: 'index'
   end
 
   form partial: 'form'
 
   controller do
-    def new
-      @albums = Album.deepest.map {|a| [a.name, a.id]}
-      super
-    end
+    before_filter :get_deepest_albums, only: [:new, :index]
 
     def create
       # r = Photo.last
@@ -40,6 +40,12 @@ ActiveAdmin.register Photo do
 
     def destroy
       super {|format| format.js { head :ok } }
+    end
+
+    private
+
+    def get_deepest_albums
+      @albums = Album.deepest.map {|a| [a.name, a.id]}
     end
   end
 

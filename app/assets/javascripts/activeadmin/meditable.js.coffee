@@ -9,9 +9,12 @@ $ ->
 
     constructor: (@source, @opts)->
       @opts = $.extend {}, @opts
-      @setOpacity('0.4')
+      unless @placeholder = @source.data('meditable-empty')
+        throw 'Требутся атрибут data-meditable-empty'
       @source.html($.trim(@source.html()))
-      @placeholder = @source.html()
+      if @source.html() == ''
+        @setOpacity('0.4')
+        @source.html(@placeholder)
       @source.click @onClick
 
     setOpacity: (op)->
