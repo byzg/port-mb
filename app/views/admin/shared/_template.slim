@@ -1,0 +1,13 @@
+.col-xs-6.col-sm-6.col-md-4.template style='display: none'
+  - if defined?(mresource) && mresource
+    .meta.hide= "#{mresource.class}Serializer".constantize.new(mresource).to_json(root: false)
+  .thumbnail
+    = image_tag 'loading.gif'
+    .caption
+      b.name data-meditable-empty='Название'
+      div.description data-meditable-empty='Описание'
+      p.text-right.actions
+        = select :resource, :album_id, @albums, {include_blank: true}, {class: 'pull-left'}
+        = link_to admin_photo_path(0), class: 'btn btn-danger destroy', title: 'Удалить', method: :delete, remote: true, data: { confirm: 'Подтвердите удаление' } do
+          i.glyphicon.glyphicon-trash
+        end

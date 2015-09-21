@@ -15,7 +15,6 @@ class Photo < ActiveRecord::Base
   def styles
     {medium: '500x500>'}.merge({grid: Photo::RATIOS[orient]})
   end
-  def grid; image.url(:grid)  end
 
   def orient
     if new_record?

@@ -3,14 +3,8 @@ ActiveAdmin.register Album do
   scope :all
   scope('По иерархии', default: true) {|scope| scope.where(album_id: nil)}
   
-  index as: :block do |album|
-    a href: edit_admin_album_path(album) do
-      span for: album do
-        resource_selection_cell album
-        img src: album.cover.image.url(:medium)
-        div album.name, class: :name
-      end
-    end
+  index do |album|
+    render partial: 'index'
   end
 
 end

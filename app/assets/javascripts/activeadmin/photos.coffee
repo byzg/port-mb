@@ -1,11 +1,6 @@
-$ ->
-  handleDestroy = ($photoTemplate, photoId)->
-    destroyBtn = $photoTemplate.find('.destroy')
-    destroyPath = destroyBtn.attr('href').replace(/(?=.+)\d+/, photoId)
-    destroyBtn.attr('href', destroyPath)
-    $photoTemplate.on 'ajax:success', '.destroy', ->
-      $photoTemplate.remove()
+$ ->  
   if $('body.admin_photos').length > 0
+
     if $('body.new').length > 0
     
       class PhotoUploader
@@ -44,7 +39,7 @@ $ ->
         onDone: (e, data)=>
           $photoTemplate = @photoTemplates.shift()
           $photoTemplate.find('img').attr 'src', data.result.image_url
-          handleDestroy($photoTemplate, data.result.id)
+          handleDestroyResource($photoTemplate, data.result.id)
           for klass in ['.actions', '.name', '.description']
             $photoTemplate.find(klass).show()
           for klass in ['.name', '.description']
@@ -75,7 +70,7 @@ $ ->
         progress = new Progressable($('.progress.progress-striped.active'))
         photoUploader = new PhotoUploader $('form.photo'),
           uploadedCnt: $('.uploaded')
-          uploadedPhotoTemplateSltr: '.photo.template'
+          uploadedPhotoTemplateSltr: '.template'
           addPhotoBtn: $('.fileinput-button')
           dropzoneDefaultClass: 'alert-info',
           dropzoneDragoverClass: 'alert-warning'
@@ -87,33 +82,14 @@ $ ->
           dropZone: $('.drop-zone')
 
     if $('body.index').length > 0
-      albumable = null
-      class Template
-        constructor: (template)->
-          @$template = $(template)
-          @photo = JSON.parse(@$template.find('.meta').html())
-          @$img = @$template.find('img')
-          @$name = @$template.find('.name')
-          @$description = @$template.find('.description')
-          @$select = @$template.find('select#photo_album_id')
-          @fillData()
-          @$template.show()
-
-        fillData: ->
-          @$img.attr('src', @photo.grid)
-          for medit in ['name', 'description']
-            $elem = @["$#{medit}"]
-            labelEmpty = $elem.html()
-            $elem.html(@photo[medit])
-            new mEditable $elem,
-              url: "/admin/photos/#{@photo.id}"
-              dataWrap: "{\"photo\": {\"#{medit}\": @}}"
-          albumable.push @$select, @photo.id, @photo.album_id
-          handleDestroy(@$template, @photo.id)
-
       $(document).ready ->
         albumable = new Albumable('photo')
         $('.template').each (_, template)->
-          new Template(template)
+          new Template template,
+            meditableOpts:
+              url: "/admin/photos/:id"
+              dataWrap: "{\"photo\": {\"@medit\": @}}"
+            handleDestroy: handleDestroyResource
+            albumable: albumable
 
       
