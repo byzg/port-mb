@@ -1,16 +1,8 @@
 ActiveAdmin.register Photo do
   config.clear_sidebar_sections!
   permit_params :description, :album_id, :image, :name
+  config.per_page = 3 if Rails.env.development?
 
-  # index as: :block do |photo|
-  #   # a href: edit_admin_photo_path(photo) do
-  #   span for: photo do
-  #     resource_selection_cell photo
-  #     img src: photo.image.url(:medium)
-  #     div photo.description, class: :description
-  #   end
-  #   # end
-  # end
   index do
     render partial: 'index'
   end
@@ -21,17 +13,16 @@ ActiveAdmin.register Photo do
     before_filter :get_deepest_albums, only: [:new, :index]
 
     def create
-      # r = Photo.last
-      # render json: { image_url: r.image.url(:grid), id: r.id, album_id: r.album_id }
-      params[:photo][:image] = params[:photo][:image][0]
-      super do |format|
-        format.html do
-          redirect_to edit_admin_photo_path(resource) and return if resource.valid?
-        end
-        format.json do
-          render json: { image_url: resource.image.url(:grid), id: resource.id, album_id: resource.album_id }
-        end
-      end
+      render json: Photo.last
+      # params[:photo][:image] = params[:photo][:image][0]
+      # super do |format|
+      #   format.html do
+      #     redirect_to edit_admin_photo_path(resource) and return if resource.valid?
+      #   end
+      #   format.json do
+      #     render json: resource
+      #   end
+      # end
     end
 
     def update

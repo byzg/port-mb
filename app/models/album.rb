@@ -19,20 +19,20 @@ class Album < ActiveRecord::Base
   #   result
   # end
 
-  # def hierarchy(opts = {})
-  #   opts = {without_photos: true}.merge opts
-  #   if opts[:without_photos]
-  #     Hash[albums.map {|album| [album, album.hierarchy]}]
-  #   else
-  #     photos
-  #   end
-  # end
+  def hierarchy(opts = {})
+    opts = {without_photos: true}.merge opts
+    if opts[:without_photos]
+      Hash[children.map {|album| [album, album.hierarchy]}]
+    else
+      photos
+    end
+  end
 
-  # def self.hierarchy(opts = {})
-  #   opts = {without_photos: true}.merge opts
-  #   Hash[where(album_id: nil).map do |album|
-  #     [album, album.hierarchy(opts)] 
-  #   end]
-  # end
+  def self.hierarchy(opts = {})
+    opts = {without_photos: true}.merge opts
+    Hash[where(album_id: nil).map do |album|
+      [album, album.hierarchy(opts)]
+    end]
+  end
 
 end
