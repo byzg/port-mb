@@ -29,25 +29,16 @@ $ ->
           $photo = @opts.uploadedCnt.find(@opts.uploadedPhotoTemplateSltr)
           clone = $photo.first().clone()
           clone.removeClass 'template'
-          clone.removeClass 'hide'
           @opts.uploadedCnt.append clone
           @photoTemplates.push clone
-          for klass in ['.actions', '.name', '.description']
-            clone.find(klass).hide()
-          clone.show()
 
         onDone: (e, data)=>
           $photoTemplate = @photoTemplates.shift()
-          $photoTemplate.find('img').attr 'src', data.result.image_url
-          handleDestroyResource($photoTemplate, data.result.id)
-          for klass in ['.actions', '.name', '.description']
-            $photoTemplate.find(klass).show()
-          for klass in ['.name', '.description']
-            new mEditable $photoTemplate.find(klass),
-              url: "/admin/photos/#{data.result.id}"
-              dataWrap: "{\"photo\": {\"#{klass[1..-1]}\": @}}"
+          $photoTemplate.find('.meta').html(JSON.stringify(data.result))
+          new Template $photoTemplate, 'photo',
+            albumable: @albumable
+            withoutImgLink: true
           @opts.progressBar.tick()
-          @albumable.push $photoTemplate.find('select'), data.result.id, data.result.album_id
 
         onDragover: =>
           @uploadParams.dropZone.removeClass @opts.dropzoneDefaultClass
@@ -85,11 +76,8 @@ $ ->
       $(document).ready ->
         albumable = new Albumable('photo')
         $('.template').each (_, template)->
-          new Template template,
-            meditableOpts:
-              url: "/admin/photos/:id"
-              dataWrap: "{\"photo\": {\"@medit\": @}}"
-            handleDestroy: handleDestroyResource
+          new Template template, 'photo',
             albumable: albumable
+            withoutImgLink: true
 
       

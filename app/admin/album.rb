@@ -3,8 +3,12 @@ ActiveAdmin.register Album do
   scope :all
   scope('По иерархии', default: true) {|scope| scope.where(album_id: nil)}
   
-  index do |album|
-    render partial: 'index'
+  index { render partial: 'index' }
+
+  controller do
+    def index
+      super
+    end
   end
 
 end
