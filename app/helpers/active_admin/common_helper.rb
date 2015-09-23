@@ -12,19 +12,19 @@ module ActiveAdmin::CommonHelper
   end
 
   def albumable_select mresource
-    unless @albumable_select
-      options = (albums_wrapped_list.map do |option|
-        option_params = {value: option[:value]}
-        case mresource.class
-          when Photo
-            option_params[:disabled] = option[:deepest]
-        end
-        content_tag(:option, option[:name], option_params)
-      end).join('')
-      p options
-      @albumable_select = select_tag :resource, options.html_safe
-    end
-    @albumable_select
+    @albums_with_photos_ids ||= Album.with_photos.pluck(:id).uniq
+    @albums_with_children_ids ||= Album.with_children.pluck(:id).uniq
+    options = (albums_wrapped_list.map do |option|
+      option_params = {value: option[:value]}
+      if mresource.class == Photo
+        option_params[:disabled] = !option[:deepest] || @albums_with_children_ids.include?(mresource.id)
+        # option_params[:selected] = option[:value] == mresource.id
+      end
+      if mresource.class == Album
+      end
+      content_tag(:option, option[:name], option_params)
+    end).join('').html_safe
+    select_tag :resource, options, include_blank: true, class: 'pull-left'
   end
 
 end

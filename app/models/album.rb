@@ -7,7 +7,8 @@ class Album < ActiveRecord::Base
   validates :cover, presence: true
   
   scope :deepest, -> { includes(:children).where(children_albums: { id: nil }) }
-
+  scope :with_photos, -> { joins(:photos) }
+  scope :with_children, -> { joins(:children) }
 
   # def level
   #   result = 1
@@ -24,7 +25,7 @@ class Album < ActiveRecord::Base
   end
 
   def self.hierarchy
-    Hash[where(album_id: nil).map do |album|
+    Hash[includes(:children).where(album_id: nil).map do |album|
       [album, album.hierarchy]
     end]
   end

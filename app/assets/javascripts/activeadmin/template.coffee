@@ -19,7 +19,7 @@ window.Template = class Template
     @$img = @$template.find('img')
     @$name = @$template.find('.name')
     @$description = @$template.find('.description')
-    @$select = @$template.find('select#resource_album_id')
+    @$select = @$template.find('select')
     @$destroy = @$template.find('.destroy')
     @fillData()
     @$template.show()
