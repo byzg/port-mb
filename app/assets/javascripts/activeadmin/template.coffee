@@ -1,5 +1,3 @@
-window.
-
 window.Template = class Template
   prepareMeditableOpts = (self, attrubute, resourceName)->
     url: self.opts.meditableOpts.url.replace /\:id/, self.resource.id

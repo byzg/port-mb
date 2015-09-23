@@ -10,7 +10,7 @@ ActiveAdmin.register Photo do
   form partial: 'form'
 
   controller do
-    before_filter :get_deepest_albums, only: [:new, :index]
+    before_filter :get_hierarchy, only: [:new, :index]
 
     def create
       render json: Photo.last
@@ -35,8 +35,8 @@ ActiveAdmin.register Photo do
 
     private
 
-    def get_deepest_albums
-      @albums = Album.deepest.map {|a| [a.name, a.id]}
+    def get_hierarchy
+      @hierarchy = Album.hierarchy
     end
   end
 

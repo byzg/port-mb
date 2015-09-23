@@ -261,10 +261,6 @@ ActiveAdmin.setup do |config|
   # config.filters = true
 end
 
-module ActiveAdmin::ViewHelpers
-  include ActiveAdminHelper
-end
-
 module ActiveAdmin
   module Views
     module Pages
