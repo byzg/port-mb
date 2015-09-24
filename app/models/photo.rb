@@ -10,7 +10,7 @@ class Photo < ActiveRecord::Base
   belongs_to :album
 
   validates :image, presence: true
-  validate :check_album_level
+  validate :should_deepest
 
   def styles
     {medium: '500x500>'}.merge({grid: Photo::RATIOS[orient]})
@@ -30,7 +30,7 @@ class Photo < ActiveRecord::Base
 
   private
 
-  def check_album_level
+  def should_deepest
     errors.add :album_id, :should_deepest if album.try(:children).try(:present?)
   end
   

@@ -3,7 +3,7 @@ $ ->
     setEmptyLabel = (text)->
       (($) ->$.fn.selectpicker.defaults = noneSelectedText: text)(jQuery)
 
-    constructor: (@resourceName)->      
+    constructor: (@resourceName, @opts)->      
       @collection = []
 
     push: ($select, resourceId, currentAlbumId)=>
@@ -24,6 +24,8 @@ $ ->
             type: 'PUT'
             dataType: 'json'
             data: data
+          .done =>
+            @opts.onAfterSelect()
 
     global: ($selectCnt)->
       @globalCnt = $selectCnt

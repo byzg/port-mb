@@ -4,7 +4,8 @@ module ActiveAdmin::CommonHelper
     scope.each do |album, hierarchy|
       list << {name: (deep + (album.name.size == 0 ? "##{album.id}" : album.name)),
                value: album.id,
-               deepest: hierarchy.empty?
+               deepest: hierarchy.empty?,
+               deep: deep.length
               }
       list += albums_wrapped_list(hierarchy, deep + '-')
     end
@@ -13,25 +14,24 @@ module ActiveAdmin::CommonHelper
 
   def albumable_select mresource
     @albums_with_photos_ids ||= Album.with_photos.pluck(:id).uniq
-    @albums_with_children_ids ||= Album.with_children.pluck(:id).uniq
-    options = (albums_wrapped_list.map do |option|
+    @albums_wrapped_list ||= albums_wrapped_list
+    options = (@albums_wrapped_list.map do |option|
       option_params = {value: option[:value]}
       if mresource.class == Photo
-        option_params[:disabled] = !option[:deepest] || @albums_with_children_ids.include?(mresource.id)
+        option_params[:disabled] = !option[:deepest]
         # option_params[:selected] = option[:value] == mresource.id
       end
       if mresource.class == Album
-        # byebug
-        @disabling ||= {val: false, pos: nil}
-        pos = (option[:name] =~ /(?<=\-)+\-+/)
-        pos = pos.nil? ? 1 : pos + 1
+        @disabling ||= {val: false, deep: nil}
         if option[:value] == mresource.id
           @disabling[:val] = true
-          @disabling[:pos] = pos
-        elsif @disabling[:val] && @disabling[:pos] > pos
+          @disabling[:deep] = option[:deep]
+        elsif @disabling[:val] && @disabling[:deep] >= option[:deep]
           @disabling[:val] = false
         end
-        option_params[:disabled] = @disabling[:val]
+        disabled = @disabling[:val]        
+        disabled |= @albums_with_photos_ids.include?(option[:value]) if option[:deepest]
+        option_params[:disabled] = disabled
       end
       content_tag(:option, option[:name], option_params)
     end).join('').html_safe

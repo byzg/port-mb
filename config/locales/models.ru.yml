@@ -12,6 +12,10 @@ ru:
           attributes:
             album_id:
               should_deepest: ' может находиться лишь в альбоме, не имеющем альбомов'
+        album:
+          attributes:
+            album_id:
+              should_be_near_albums: ' может находиться лишь в альбоме, не имеющем фото'      
       messages:
         record_invalid: 'Запись недействительна'
         blank: '- поле не может быть пустым'
