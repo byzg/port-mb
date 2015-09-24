@@ -2,7 +2,7 @@ module ActiveAdmin::CommonHelper
 
   def albums_wrapped_list(scope = @hierarchy, deep = '', list = [])
     scope.each do |album, hierarchy|
-      list << {name: (deep + (album.name || "##{album.id}")),
+      list << {name: (deep + (album.name.size == 0 ? "##{album.id}" : album.name)),
                value: album.id,
                deepest: hierarchy.empty?
               }
@@ -21,6 +21,17 @@ module ActiveAdmin::CommonHelper
         # option_params[:selected] = option[:value] == mresource.id
       end
       if mresource.class == Album
+        # byebug
+        @disabling ||= {val: false, pos: nil}
+        pos = (option[:name] =~ /(?<=\-)+\-+/)
+        pos = pos.nil? ? 1 : pos + 1
+        if option[:value] == mresource.id
+          @disabling[:val] = true
+          @disabling[:pos] = pos
+        elsif @disabling[:val] && @disabling[:pos] > pos
+          @disabling[:val] = false
+        end
+        option_params[:disabled] = @disabling[:val]
       end
       content_tag(:option, option[:name], option_params)
     end).join('').html_safe

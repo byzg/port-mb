@@ -6,8 +6,15 @@ ActiveAdmin.register Album do
   index { render partial: 'index' }
 
   controller do
+    before_filter :get_hierarchy, only: [:new, :index]
     def index
       super
+    end
+
+    private
+
+    def get_hierarchy
+      @hierarchy = Album.hierarchy
     end
   end
 
