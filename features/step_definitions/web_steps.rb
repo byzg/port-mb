@@ -1,7 +1,8 @@
 #coding: utf-8
 PAGES={
     'Главная' => '/',
-    'Админ.фото' => '/admin/photos'
+    'Админ.фото' => '/admin/photos',
+    'Админ.альбомы' => '/admin/albums'
 }
 
 Пусть(/^я вхожу на страницу "(.*?)"$/) do |page|
@@ -16,17 +17,8 @@ When /^я ввожу "(.*?)" в поле "(.*?)"$/ do |value, field_id|
   fill_in field_id, with: value
 end
 
-When /^я нажимаю кнопку "(.*?)"$/ do |button_name|
-  button_name = I18n.t(button_name[1..-1].to_sym) if button_name.first == ':'
-  begin
-    click_button button_name
-  rescue
-    if button_name.first == '#'
-      page.execute_script("jQuery('input##{button_name}').click()")
-    else
-      page.execute_script(%|jQuery('input[value="#{button_name}"]').click()|)
-    end
-  end
+When /^я нажимаю кнопку "(.*?)"$/ do |button_text|
+  click_button button_text
 end
 
 Пусть(/^я нажимаю(?: первую)? ссылку с текстом "(.*?)"$/) do |link_text|
@@ -48,4 +40,8 @@ end
 
 When /^я не вижу "(.*?)"$/ do |label|
   expect(page.has_no_content?(label)).to be true
+end
+
+И(/^я хочу увидеть скриншот$/) do
+  Capybara::Screenshot.screenshot_and_open_image
 end
