@@ -7,8 +7,9 @@ ActiveAdmin.register Album do
 
   controller do
     before_filter :get_hierarchy, only: [:new, :index]
-    def index
-      super
+
+    def destroy
+      super {|format| format.js { head :ok } }
     end
 
     private

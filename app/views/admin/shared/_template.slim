@@ -10,7 +10,6 @@
       div.description data-meditable-empty='Описание'
       p.text-right.actions
         = albumable_select (defined?(mresource) ? mresource : Photo.new)
-        /= select :resource, :album_id, @albums, {include_blank: true}, {class: 'pull-left'}
-        = link_to 'javascript:void(0)', class: 'btn btn-danger destroy', title: 'Удалить', method: :delete, remote: true, data: { confirm: 'Подтвердите удаление' } do
+        = link_to 'javascript:void(0)', class: 'btn btn-danger destroy', title: 'Удалить', method: :delete, remote: true, data: { confirm: template_confirm_message(mresource) } do
           i.glyphicon.glyphicon-trash
         end

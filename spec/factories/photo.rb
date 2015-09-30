@@ -5,5 +5,6 @@ FactoryGirl.define do
     image_file_size 4820216
     image_updated_at '2015-09-21 22:10:40'
     description   'Описание1'
+    sequence(:name) {|n| n }
   end
 end

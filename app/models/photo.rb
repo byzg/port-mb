@@ -1,4 +1,5 @@
 class Photo < ActiveRecord::Base
+  include AlbumPhotoCommon
   RATIOS = { horizontal: '674x407#', vertical: '674x814#' }
   has_attached_file(
       :image,

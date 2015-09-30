@@ -1,6 +1,7 @@
 class Album < ActiveRecord::Base
-  has_many :children, class_name: 'Album', foreign_key: 'album_id'
-  has_many :photos
+  include AlbumPhotoCommon
+  has_many :children, class_name: 'Album', foreign_key: 'album_id', dependent: :destroy
+  has_many :photos, dependent: :destroy
   belongs_to :parent, foreign_key: "album_id", class_name: 'Album'
   belongs_to :cover, class_name: 'Photo'
 

@@ -45,3 +45,11 @@ end
 И(/^я хочу увидеть скриншот$/) do
   Capybara::Screenshot.screenshot_and_open_image
 end
+
+Пусть(/^я вижу (\d+) темплейт.?.?$/) do |count|
+  expect(all('.template').size).to eq count.to_i
+end
+
+Пусть(/^я удаляю (\d+) ый темплейт$/) do |num|
+  find(".template:nth-child(#{num}) .destroy").click
+end

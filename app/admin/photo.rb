@@ -13,16 +13,16 @@ ActiveAdmin.register Photo do
     before_filter :get_hierarchy, only: [:new, :index]
 
     def create
-      render json: Photo.last
-      # params[:photo][:image] = params[:photo][:image][0]
-      # super do |format|
-      #   format.html do
-      #     redirect_to edit_admin_photo_path(resource) and return if resource.valid?
-      #   end
-      #   format.json do
-      #     render json: resource
-      #   end
-      # end
+      # render json: Photo.last
+      params[:photo][:image] = params[:photo][:image][0]
+      super do |format|
+        format.html do
+          redirect_to edit_admin_photo_path(resource) and return if resource.valid?
+        end
+        format.json do
+          render json: resource
+        end
+      end
     end
 
     def update
