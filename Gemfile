@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://rubygems.org'
 ruby '2.1.5'
 
 gem 'rails', '4.2.4'
@@ -29,10 +29,12 @@ group :test do
   gem 'mocha', :require => false
   gem 'webmock'
   gem 'capybara'
+  gem 'capybara-screenshot'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'poltergeist'
   gem 'spring-commands-cucumber'
+  gem 'spring-commands-rspec'
 end
 
 group :production do
@@ -58,3 +60,5 @@ gem 'jquery-fileupload-rails'
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'bootstrap-select-rails'
 gem 'rack-jquery-params', require: 'rack/jquery-params', github: 'byzg/rack-jquery-params'
+gem 'active_model_serializers'
+

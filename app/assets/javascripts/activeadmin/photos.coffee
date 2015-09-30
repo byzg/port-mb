@@ -1,11 +1,6 @@
-$ ->
-  handleDestroy = ($photoTemplate, photoId)->
-    destroyBtn = $photoTemplate.find('.destroy')
-    destroyPath = destroyBtn.attr('href').replace(/(?=.+)\d+/, photoId)
-    destroyBtn.attr('href', destroyPath)
-    $photoTemplate.on 'ajax:success', '.destroy', ->
-      $photoTemplate.remove()
+$ ->  
   if $('body.admin_photos').length > 0
+
     if $('body.new').length > 0
     
       class PhotoUploader
@@ -34,25 +29,16 @@ $ ->
           $photo = @opts.uploadedCnt.find(@opts.uploadedPhotoTemplateSltr)
           clone = $photo.first().clone()
           clone.removeClass 'template'
-          clone.removeClass 'hide'
           @opts.uploadedCnt.append clone
           @photoTemplates.push clone
-          for klass in ['.actions', '.name', '.description']
-            clone.find(klass).hide()
-          clone.show()
 
         onDone: (e, data)=>
           $photoTemplate = @photoTemplates.shift()
-          $photoTemplate.find('img').attr 'src', data.result.image_url
-          handleDestroy($photoTemplate, data.result.id)
-          for klass in ['.actions', '.name', '.description']
-            $photoTemplate.find(klass).show()
-          for klass in ['.name', '.description']
-            new mEditable $photoTemplate.find(klass),
-              url: "/admin/photos/#{data.result.id}"
-              dataWrap: "{\"photo\": {\"#{klass[1..-1]}\": @}}"
+          $photoTemplate.find('.meta').html(JSON.stringify(data.result))
+          new Template $photoTemplate, 'photo',
+            albumable: @albumable
+            withoutImgLink: true
           @opts.progressBar.tick()
-          @albumable.push $photoTemplate.find('select'), data.result.id, data.result.album_id
 
         onDragover: =>
           @uploadParams.dropZone.removeClass @opts.dropzoneDefaultClass
@@ -75,7 +61,7 @@ $ ->
         progress = new Progressable($('.progress.progress-striped.active'))
         photoUploader = new PhotoUploader $('form.photo'),
           uploadedCnt: $('.uploaded')
-          uploadedPhotoTemplateSltr: '.photo.template'
+          uploadedPhotoTemplateSltr: '.template'
           addPhotoBtn: $('.fileinput-button')
           dropzoneDefaultClass: 'alert-info',
           dropzoneDragoverClass: 'alert-warning'
@@ -87,33 +73,11 @@ $ ->
           dropZone: $('.drop-zone')
 
     if $('body.index').length > 0
-      albumable = null
-      class Template
-        constructor: (template)->
-          @$template = $(template)
-          @photo = JSON.parse(@$template.find('.meta').html())
-          @$img = @$template.find('img')
-          @$name = @$template.find('.name')
-          @$description = @$template.find('.description')
-          @$select = @$template.find('select#photo_album_id')
-          @fillData()
-          @$template.show()
-
-        fillData: ->
-          @$img.attr('src', @photo.grid)
-          for medit in ['name', 'description']
-            $elem = @["$#{medit}"]
-            labelEmpty = $elem.html()
-            $elem.html(@photo[medit])
-            new mEditable $elem,
-              url: "/admin/photos/#{@photo.id}"
-              dataWrap: "{\"photo\": {\"#{medit}\": @}}"
-          albumable.push @$select, @photo.id, @photo.album_id
-          handleDestroy(@$template, @photo.id)
-
       $(document).ready ->
         albumable = new Albumable('photo')
         $('.template').each (_, template)->
-          new Template(template)
+          new Template template, 'photo',
+            albumable: albumable
+            withoutImgLink: true
 
       

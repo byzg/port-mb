@@ -2,7 +2,7 @@ require 'capybara/poltergeist'
 require 'webmock/cucumber'
 # require 'cucumber/rspec/doubles'
 # require_relative './helpers'
-
+AWS.stub!
 WebMock.disable_net_connect!(allow_localhost: true)
 
 ENV["RAILS_ENV"] ||= 'test'

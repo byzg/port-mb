@@ -1,6 +1,6 @@
 .row.global-album style='display: none'
   .col-xs-1
-    = select :photo, :album_id, @albums, {include_blank: true}, {class: 'pull-left'}
+    = albumable_select Photo.new
   .col-xs-1.col-xs-offset-2
     button.btn.btn-warning.ok[disabled] ОК
 p

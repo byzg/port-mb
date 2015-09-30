@@ -1,21 +1,4 @@
-body.admin_photos, body.admin_albums
-  .index
-    span.photo, span.album
-      $photo-size: 200px
-      width: $photo-size
-      display: inline-block
-      img
-        display: block
-        width: 100%
-        height: $photo-size
-        object-fit: cover
-      .description, .name
-        width: 100%
-        text-overflow: ellipsis
-        white-space: nowrap
-        overflow: hidden
-        min-height: 18px
-
+body.admin_photos
   &.new
     form
       display: none
