@@ -1,5 +1,6 @@
 require 'capybara/poltergeist'
 require 'webmock/cucumber'
+require 'aws'
 # require 'cucumber/rspec/doubles'
 # require_relative './helpers'
 AWS.stub!
