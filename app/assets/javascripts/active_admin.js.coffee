@@ -7,3 +7,4 @@
 #= require bootstrap-select.defaults-ru_RU
 #= require bootstrap/alert
 #= require bootstrap/dropdown
+#= require bootstrap/modal
