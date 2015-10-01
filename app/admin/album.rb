@@ -1,4 +1,5 @@
 ActiveAdmin.register Album do
+  config.clear_sidebar_sections!
   permit_params :album_id, :cover_id, :name, :priority
   scope :all
   scope('По иерархии', default: true) {|scope| scope.where(album_id: nil).includes(:cover)}
@@ -19,6 +20,13 @@ ActiveAdmin.register Album do
       @collection = resource.children
       @collection = resource.photos if @collection.empty?
       super
+    end
+
+    def cover_edit
+      
+    end
+
+    def cover_update
     end
 
     def destroy

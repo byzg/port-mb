@@ -1,15 +1,14 @@
 module ActiveAdmin::CommonHelper
 
-  def albums_wrapped_list(scope = @hierarchy, deep = '', list = [])
-    scope.each do |album, hierarchy|
-      list << {name: ("#{deep}#{album.name}"),
-               value: album.id,
-               deepest: hierarchy.empty?,
-               deep: deep.length
-              }
-      list += albums_wrapped_list(hierarchy, deep + '-')
+  def albums_wrapped_list(hierarchy = @hierarchy, deep = '', list = [])
+    hierarchy.map do |struct|
+      album = struct[:album]
+      {name: ("#{'-' * struct[:deep]}#{album.name}"),
+       value: album.id,
+       deepest: struct[:deepest],
+       deep: struct[:deep]
+      }
     end
-    list
   end
 
   def albumable_select mresource
