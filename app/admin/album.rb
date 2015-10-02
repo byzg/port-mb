@@ -2,11 +2,24 @@ ActiveAdmin.register Album do
   permit_params :album_id, :cover_id, :name, :priority
   scope :all
   scope('По иерархии', default: true) {|scope| scope.where(album_id: nil).includes(:cover)}
+
+  # breadcrumb do
+  #   session[:breadcrumbs] = []
+  #   session[:breadcrumbs] << link_to(resource.name, admin_album_path(resource)).html_safe
+  # end
   
   index { render partial: 'index' }
+  show { render partial: 'children' }
 
   controller do
-    before_filter :get_hierarchy, only: [:new, :index]
+    before_filter :get_hierarchy, only: [:new, :index, :show]
+    before_filter :get_breadcrumbs, only: :show
+
+    def show
+      @collection = resource.children
+      @collection = resource.photos if @collection.empty?
+      super
+    end
 
     def destroy
       super {|format| format.js { head :ok } }
@@ -16,6 +29,10 @@ ActiveAdmin.register Album do
 
     def get_hierarchy
       @hierarchy = Album.hierarchy
+    end
+
+    def get_breadcrumbs
+
     end
   end
 

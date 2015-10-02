@@ -6,6 +6,6 @@ class PhotoSerializer < ActiveModel::Serializer
   end
 
   def img_link
-    edit_admin_photo_path(object)
+    'javascript:void(0)' # edit_admin_photo_path(object)
   end
 end

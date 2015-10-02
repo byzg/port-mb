@@ -1,0 +1,7 @@
+.container-fluid
+  - if @collection.empty?
+    .col-xs-6.center-block= "В альбоме #{resource.name} нет альбомов или фотографий"
+  - else
+    = render partial: 'admin/shared/template',
+         collection: @collection,
+         as: :mresource
