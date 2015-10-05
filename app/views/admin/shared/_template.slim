@@ -1,7 +1,8 @@
-.col-xs-6.col-sm-6.col-md-4.template style='display: none'
+- class_name = mresource.class if defined?(mresource)
+.col-xs-6.col-sm-6.col-md-4.template style='display: none' class="#{class_name.to_s.downcase}"
   .meta.hide
     - if defined?(mresource) && mresource
-      = "#{mresource.class}Serializer".constantize.new(mresource).to_json
+      = "#{class_name}Serializer".constantize.new(mresource).to_json
   .thumbnail
     = link_to 'javascript:void(0)' do
       = image_tag 'loading.gif'
