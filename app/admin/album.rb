@@ -22,13 +22,6 @@ ActiveAdmin.register Album do
       super
     end
 
-    def cover_edit
-      
-    end
-
-    def cover_update
-    end
-
     def destroy
       super {|format| format.js { head :ok } }
     end
@@ -42,6 +35,14 @@ ActiveAdmin.register Album do
     def get_breadcrumbs
 
     end
+  end
+
+  member_action :cover_edit, method: :get do
+    album = Album.find(params[:id])
+    render json: album.children_photos.map {|p| p.image.url(:grid) }
+  end
+
+  member_action :cover_update, method: :put do
   end
 
 end

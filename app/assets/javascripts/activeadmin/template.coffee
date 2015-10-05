@@ -10,6 +10,11 @@ window.Template = class Template
     $template.on 'ajax:success', '.destroy', ->
       $template.remove()
 
+  handleCoverChangealbe = ($template, album)->
+    if btn = $template.find('.coverchangeable')
+      title = "Изменить абложку альбома #{album.name}"
+      new CoverChangeable(album, btn, title)
+
   constructor: (template, @resourceName, @opts)->
     @opts.meditableOpts ||=
       url: "/admin/#{@resourceName}s/:id"
@@ -34,3 +39,4 @@ window.Template = class Template
       new mEditable $elem, prepareMeditableOpts(@, medit)              
     @opts.albumable.push @$select, @resource.id, @resource.album_id
     handleDestroy(@$template, @resource.id, @resourceName)
+    handleCoverChangealbe(@$template, @resource)

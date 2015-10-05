@@ -12,6 +12,11 @@ class Album < ActiveRecord::Base
   scope :deepest, -> { includes(:children).where(children_albums: { id: nil }) }
   scope :with_photos, -> { joins(:photos) }
 
+  def children_photos
+    subalbums_ids = hierarchy.map {|data| data[:album]['id'] if data[:deepest] }.compact
+    photos = Photo.where('id in (?)', subalbums_ids)
+  end
+
   private
 
   def should_be_near_albums
