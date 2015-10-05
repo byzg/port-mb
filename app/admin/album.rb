@@ -22,13 +22,6 @@ ActiveAdmin.register Album do
       super
     end
 
-    def cover_edit
-      
-    end
-
-    def cover_update
-    end
-
     def destroy
       super {|format| format.js { head :ok } }
     end
