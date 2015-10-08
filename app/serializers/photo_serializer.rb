@@ -2,7 +2,7 @@ class PhotoSerializer < ActiveModel::Serializer
   attributes :id, :name, :description, :album_id, :img, :img_link
 
   def img
-    object.image.url(:medium)
+    object.image.url(:grid)
   end
 
   def img_link

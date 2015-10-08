@@ -1,6 +1,6 @@
 ActiveAdmin.register Album do
   config.clear_sidebar_sections!
-  permit_params :album_id, :cover_id, :name, :priority
+  permit_params :album_id, :cover_id, :name, :priority, :description
   scope :all
   scope('По иерархии', default: true) {|scope| scope.where(album_id: nil).includes(:cover)}
 
@@ -26,6 +26,10 @@ ActiveAdmin.register Album do
       super {|format| format.js { head :ok } }
     end
 
+    def update
+      super {|format| format.json { head :ok } }
+    end
+
     private
 
     def get_hierarchy
@@ -37,12 +41,9 @@ ActiveAdmin.register Album do
     end
   end
 
-  member_action :cover_edit, method: :get do
+  member_action :cover_edit, method: :get do    
     album = Album.find(params[:id])
-    render json: album.children_photos.map {|p| p.image.url(:grid) }
-  end
-
-  member_action :cover_update, method: :put do
+    render json: album.children_photos
   end
 
 end

@@ -6,7 +6,8 @@ class Album < ActiveRecord::Base
   belongs_to :parent, foreign_key: 'album_id', class_name: 'Album'
   belongs_to :cover, class_name: 'Photo'
 
-  validates :cover, presence: true
+  validates :cover, presence: true, unless: Proc.new {|a| cover_id_was.nil? }
+  validate :check_cover_between_children
   validate :should_be_near_albums
   
   scope :deepest, -> { includes(:children).where(children_albums: { id: nil }) }
@@ -14,13 +15,17 @@ class Album < ActiveRecord::Base
 
   def children_photos
     subalbums_ids = hierarchy.map {|data| data[:album]['id'] if data[:deepest] }.compact
-    photos = Photo.where('id in (?)', subalbums_ids)
+    Photo.where('id in (?)', subalbums_ids)
   end
 
   private
 
   def should_be_near_albums
     errors.add :album_id, :should_be_near_albums if parent.try(:photos).try(:present?)
+  end
+
+  def check_cover_between_children
+    
   end
 
 end

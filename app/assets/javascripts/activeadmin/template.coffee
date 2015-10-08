@@ -1,5 +1,5 @@
 window.Template = class Template
-  prepareMeditableOpts = (self, attrubute, resourceName)->
+  prepareMeditableOpts = (self, attrubute)->
     url: self.opts.meditableOpts.url.replace /\:id/, self.resource.id
     dataWrap: self.opts.meditableOpts.dataWrap.replace /@medit/, attrubute
 
@@ -18,7 +18,7 @@ window.Template = class Template
   constructor: (template, @resourceName, @opts)->
     @opts.meditableOpts ||=
       url: "/admin/#{@resourceName}s/:id"
-      dataWrap: "{\"photo\": {\"@medit\": @}}"
+      dataWrap: "{\"#{@resourceName}\": {\"@medit\": @}}"
     @$template = $(template)
     @resource = JSON.parse(@$template.find('.meta').html())
     @$img = @$template.find('img')
