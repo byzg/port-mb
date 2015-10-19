@@ -11,6 +11,14 @@ ActiveAdmin.register Album do
   
   index { render partial: 'index' }
   show { render partial: 'children' }
+  form do |f|
+    f.inputs do
+      f.input :name
+      f.input :description
+      f.input :parent, as: :select, collection: albumable_options(Album.new)
+    end
+    f.submit
+  end
 
   controller do
     before_filter :get_hierarchy, only: [:new, :index, :show]

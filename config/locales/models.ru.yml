@@ -6,6 +6,8 @@ ru:
     attributes:
       album:
         name: 'Название'
+        description: 'Описание'
+        parent: 'Родитель'
     errors:
       models:
         photo:

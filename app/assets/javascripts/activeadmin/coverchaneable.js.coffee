@@ -27,6 +27,7 @@ window.CoverChangeable = class CoverChangeable
           data-image-id='#{photo.id}' data-album-id='#{@album.id}'>
           <img class='black-white-hover' src='#{photo.img}'>
         </div>"
+    photos = 'В альбоме и его потомках нет фотографий' if photos == ''
     @$contentCnt.html(photos)
 
   _find: (id)-> _.find @photos, (photo)-> photo.id == id

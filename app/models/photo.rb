@@ -3,7 +3,7 @@ class Photo < ActiveRecord::Base
   RATIOS = { horizontal: '674x407#', vertical: '674x814#' }
   has_attached_file(
       :image,
-      styles: lambda { |attachment| attachment.instance.styles }
+      styles: lambda { |attachment| attachment.instance.styles },
   )
   validates_attachment_content_type :image,
                                     content_type: /\Aimage\/.*\Z/
@@ -12,6 +12,9 @@ class Photo < ActiveRecord::Base
 
   validates :image, presence: true
   validate :should_deepest
+  validate :move_forbidden
+
+  before_destroy :exist_covered_albums?
 
   def styles
     {medium: '500x500>'}.merge({grid: Photo::RATIOS[orient]})
@@ -33,6 +36,17 @@ class Photo < ActiveRecord::Base
 
   def should_deepest
     errors.add :album_id, :should_deepest if album.try(:children).try(:present?)
+  end
+
+  def move_forbidden
+    if album_id_changed?
+      covered = Album.where(cover_id: album_id_was)
+      errors.add :album_id, :cover if covered.any? {|al| !al.ancestor_for?(album)}
+    end
+  end
+
+  def exist_covered_albums?
+    !Album.where(cover_id: album_id).empty?
   end
   
 end

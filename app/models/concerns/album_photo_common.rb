@@ -1,5 +1,5 @@
 module AlbumPhotoCommon
   def name
-    super.presence || "##{id}"
+    super.presence || (id ? "##{id}" : '')
   end
 end

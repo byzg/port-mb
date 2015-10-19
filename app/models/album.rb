@@ -6,7 +6,7 @@ class Album < ActiveRecord::Base
   belongs_to :parent, foreign_key: 'album_id', class_name: 'Album'
   belongs_to :cover, class_name: 'Photo'
 
-  validates :cover, presence: true, unless: Proc.new {|a| cover_id_was.nil? }
+  validates :cover, presence: true, unless: Proc.new {|a| a.cover_id_was.nil? }
   validate :check_cover_between_children
   validate :should_be_near_albums
   
@@ -15,7 +15,11 @@ class Album < ActiveRecord::Base
 
   def children_photos
     subalbums_ids = hierarchy.map {|data| data[:album]['id'] if data[:deepest] }.compact
-    Photo.where('id in (?)', subalbums_ids)
+    Photo.where('album_id in (?)', subalbums_ids)
+  end
+
+  def ancestor_for?(album)
+    hierarchy.any? {|data| data[:album]['id'] == album.id }
   end
 
   private
@@ -25,7 +29,9 @@ class Album < ActiveRecord::Base
   end
 
   def check_cover_between_children
-    
+    if cover && children_photos.pluck(:id).exclude?(cover_id)
+      errors.add :cover, :between_children 
+    end
   end
-
+ 
 end
