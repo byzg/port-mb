@@ -26,7 +26,14 @@ ActiveAdmin.register Photo do
     end
 
     def update
-      super {|format| format.json { head :ok } }
+      super do |format|
+        responce = if resource.invalid?
+          render json: { errors: resource.errors.full_messages }
+        else
+          head :ok
+        end
+        format.json { responce }
+      end
     end
 
     def destroy

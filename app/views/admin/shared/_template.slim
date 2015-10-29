@@ -1,5 +1,6 @@
 - class_name = mresource.class if defined?(mresource)
 .col-xs-6.col-sm-6.col-md-4.template style='display: none' class="#{class_name.to_s.downcase}"
+  .backing
   .meta.hide
     - if defined?(mresource) && mresource
       = "#{class_name}Serializer".constantize.new(mresource).to_json
