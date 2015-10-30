@@ -14,13 +14,13 @@ $ ->
       @globalCnt.show() if @globalCnt?
       $select.val(currentAlbumId)
       $select.selectpicker()
-      $backing = $select.closest('.template').find('.backing')
+      backing = new Backing $select.closest('.template').find('.backing')
       previous = null
       $select.focus ->
         previous = $select.val()
       .change (e)=>
         unless @globalChange
-          $backing.show()
+          backing.show()
           val = $select.val()
           data = "{\"#{@resourceName}\": {\"album_id\": \"#{val}\"}}"
           data = $.parseJSON data
@@ -30,12 +30,14 @@ $ ->
             dataType: 'json'
             data: data
           .done (responce)=>
-            if responce['errors']
+            if errors = responce['errors']
               $select.val(previous)
+              backing.danger(errors)
             else
               @opts.onAfterSelect()
+              backing.hide()
             $select.selectpicker('refresh')
-            $backing.hide()
+
 
 
     global: ($selectCnt)->
