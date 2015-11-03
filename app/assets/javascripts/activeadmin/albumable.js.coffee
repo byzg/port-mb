@@ -3,8 +3,9 @@ $ ->
     setEmptyLabel = (text)->
       (($) ->$.fn.selectpicker.defaults = noneSelectedText: text)(jQuery)
 
-    constructor: (@resourceName, @opts)->      
+    constructor: (@resourceName, @opts = {})->      
       @collection = []
+      @opts.onAfterSelect ||= ->
 
     push: ($select, resourceId, currentAlbumId)=>
       setEmptyLabel('Поместить в альбом')

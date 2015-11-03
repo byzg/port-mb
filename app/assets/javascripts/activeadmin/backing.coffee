@@ -2,6 +2,7 @@ window.Backing = class Backing
   constructor: (@$element, @state = 'loading')->
     @$close = $('<button type="button" class="close" aria-hidden="true">×</button>')
     @$element.append(@$close)
+    @$close.click => @hide()
     @$message = $('<div class="message"></div>')
     @$element.append(@$message)
 

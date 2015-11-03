@@ -8,3 +8,5 @@
 #= require bootstrap/alert
 #= require bootstrap/dropdown
 #= require bootstrap/modal
+
+$.ajaxSetup({ dataType: 'json' });

@@ -32,6 +32,9 @@ ActiveAdmin.register Album do
 
     def destroy
       super {|format| format.js { head :ok } }
+    rescue 
+      Rails.logger.info $!
+      Rails.logger.info $!.backtrace.join("\n")
     end
 
     def update

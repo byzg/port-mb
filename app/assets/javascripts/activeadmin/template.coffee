@@ -3,13 +3,6 @@ window.Template = class Template
     url: self.opts.meditableOpts.url.replace /\:id/, self.resource.id
     dataWrap: self.opts.meditableOpts.dataWrap.replace /@medit/, attrubute
 
-  handleDestroy = ($template, resourceId, resourceName)->
-    destroyBtn = $template.find('.destroy')
-    destroyPath = "/admin/#{resourceName}s/#{resourceId}"
-    destroyBtn.attr('href', destroyPath)
-    $template.on 'ajax:success', '.destroy', ->
-      $template.remove()
-
   handleCoverChangealbe = ($template, album)->
     if btn = $template.find('.coverchangeable')
       title = "Изменить абложку альбома #{album.name}"
@@ -26,6 +19,7 @@ window.Template = class Template
     @$description = @$template.find('.description')
     @$select = @$template.find('select')
     @$destroy = @$template.find('.destroy')
+    @backing = new Backing @$template.find('.backing')
     @fillData()
     @$template.show()
 
@@ -38,5 +32,17 @@ window.Template = class Template
       $elem.html(@resource[medit])
       new mEditable $elem, prepareMeditableOpts(@, medit)              
     @opts.albumable.push @$select, @resource.id, @resource.album_id
-    handleDestroy(@$template, @resource.id, @resourceName)
+    @_handleDestroy()
     handleCoverChangealbe(@$template, @resource)
+
+  _handleDestroy: ->
+    destroyPath = "/admin/#{@resourceName}s/#{@resource.id}"
+    @$destroy.attr('href', destroyPath)
+    linkClass = '.destroy'
+    @$template.on 'ajax:beforeSend', linkClass, => @backing.show()
+    @$template.on 'ajax:success', linkClass, (event, xhr, settings)=>
+      if errors = xhr['errors']
+        @backing.danger(errors)
+      else
+        @$template.remove()
+    @$template.on 'ajax:error', linkClass, => @backing.danger('Что то пошло не так')

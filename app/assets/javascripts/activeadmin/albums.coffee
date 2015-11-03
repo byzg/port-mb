@@ -4,6 +4,6 @@ $ ->
       $(document).ready ->
         albumable = new Albumable 'album',
           onAfterSelect: -> location.reload()
-        $('.template').each (_, template)->
+        $('.template.album').each (_, template)->
           new Template template, 'album',
             albumable: albumable

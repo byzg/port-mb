@@ -1,5 +1,5 @@
 $ ->  
-  if $('body.admin_photos').length > 0
+  if $('body.admin_photos').length > 0 || $('.template.photo').length > 0
 
     if $('body.new').length > 0
     
@@ -72,10 +72,10 @@ $ ->
           dataType: 'json'
           dropZone: $('.drop-zone')
 
-    if $('body.index').length > 0
+    if $('body.index').length > 0 || $('body.show').length > 0
       $(document).ready ->
         albumable = new Albumable('photo')
-        $('.template').each (_, template)->
+        $('.template.photo').each (_, template)->
           new Template template, 'photo',
             albumable: albumable
             withoutImgLink: true
