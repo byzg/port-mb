@@ -39,10 +39,7 @@ class Photo < ActiveRecord::Base
   end
 
   def move_forbidden
-    if album_id_changed?
-      covered = album_id_was ? Album.where(cover_id: album_id_was) : []
-      errors.add :base, :forbidden_moving_cover if covered.any? {|al| !al.ancestor_for?(album)}
-    end
+    super(Album.where(cover_id: id))
   end
 
   def exist_covered_albums?

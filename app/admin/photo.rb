@@ -26,11 +26,11 @@ ActiveAdmin.register Photo do
     end
 
     def update
-      super { |format| format.json { responce } }
+      super { return responce }
     end
 
     def destroy
-      super { |format| format.json { responce } }
+      super { return responce }
     end
 
     private

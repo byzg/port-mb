@@ -31,14 +31,21 @@ ActiveAdmin.register Album do
     end
 
     def destroy
-      super {|format| format.js { head :ok } }
-    rescue 
-      Rails.logger.info $!
-      Rails.logger.info $!.backtrace.join("\n")
+      super { return render json: { status: 'OK' } } 
+    rescue ActiveRecord::RecordNotDestroyed
+      key = 'activerecord.errors.messages.forbidden_destroy_cover'
+      return render json: { errors: I18n.t(key) }
     end
 
     def update
-      super {|format| format.json { head :ok } }
+      super do
+        errors = resource.errors.full_messages
+        return render json: if errors.empty?
+          { status: 'OK' }
+        else
+          { errors: resource.errors.full_messages }
+        end
+      end
     end
 
     private
