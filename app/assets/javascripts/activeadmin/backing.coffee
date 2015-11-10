@@ -1,27 +1,41 @@
 window.Backing = class Backing
   constructor: (@$element, @state = 'loading')->
-    @$close = @$element.find('button.close')
-    if @$close.length == 0
+    @original = @$element.data('backing')
+    unless @original
+      @$element.data('backing', @)
       @$close = $('<button type="button" class="close" aria-hidden="true">×</button>')
       @$element.append(@$close)
       @$close.click => @hide()
-    @$message = @$element.find('.message')
-    if @$message.length == 0
       @$message = $('<div class="message"></div>')
       @$element.append(@$message)
 
-  skipState: ->
-    @$element.removeClass(@state)
-    @state = 'loading'
-    @$element.addClass(@state)
 
-  show: -> @$element.show()
+  skipState: ->
+    if @original
+      @original.skipState()
+    else
+      console.log @state
+      @$element.removeClass(@state)
+      @state = 'loading'
+      @$element.addClass(@state)
+
+  show: ->
+    if @original
+      @original.show()
+    else
+      @$element.show()
 
   hide: ->
-    @$element.hide()
-    @skipState()
+    if @original
+      @original.hide()
+    else
+      @$element.hide()
+      @skipState()
 
   danger: (message)->
-    @$message.html(message)
-    @state = 'danger'
-    @$element.addClass(@state)
+    if @original
+      @original.danger(message)
+    else
+      @$message.html(message)
+      @state = 'danger'
+      @$element.addClass(@state)
