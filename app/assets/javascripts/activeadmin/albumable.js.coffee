@@ -3,8 +3,9 @@ $ ->
     setEmptyLabel = (text)->
       (($) ->$.fn.selectpicker.defaults = noneSelectedText: text)(jQuery)
 
-    constructor: (@resourceName, @opts)->      
+    constructor: (@resourceName, @opts = {})->      
       @collection = []
+      @opts.onAfterSelect ||= ->
 
     push: ($select, resourceId, currentAlbumId)=>
       setEmptyLabel('Поместить в альбом')
@@ -14,8 +15,13 @@ $ ->
       @globalCnt.show() if @globalCnt?
       $select.val(currentAlbumId)
       $select.selectpicker()
-      $select.change =>
+      backing = new Backing $select.closest('.template').find('.backing')
+      previous = null
+      $select.focus ->
+        previous = $select.val()
+      .change (e)=>
         unless @globalChange
+          backing.show()
           val = $select.val()
           data = "{\"#{@resourceName}\": {\"album_id\": \"#{val}\"}}"
           data = $.parseJSON data
@@ -24,8 +30,16 @@ $ ->
             type: 'PUT'
             dataType: 'json'
             data: data
-          .done =>
-            @opts.onAfterSelect()
+          .done (responce)=>
+            if errors = responce['errors']
+              $select.val(previous)
+              backing.danger(errors)
+            else
+              @opts.onAfterSelect()
+              backing.hide()
+            $select.selectpicker('refresh')
+
+
 
     global: ($selectCnt)->
       @globalCnt = $selectCnt

@@ -7,3 +7,57 @@
     background-color: rgba(161, 169, 161, 0.2)
   img
     max-height: 252px
+  .backing
+    height: 94%
+    position: absolute
+    width: 91%
+    top: 0
+    background-color: white
+    opacity: 0.7
+    z-index: 400
+    background-image: url('/assets/loading.gif')
+    background-repeat: no-repeat
+    background-position: 50%
+    display: none
+    .message
+      display: none
+      width: 80%
+      margin: 50% auto
+      font-size: 14px
+      color: rgb(186, 45, 12)
+      text-shadow: rgb(32, 22, 22) 0 0
+    .close
+      padding: 0
+      cursor: pointer
+      background: 0 0
+      border: 0
+      display: none
+      -webkit-appearance: none
+      float: right
+      font-size: 21px
+      font-weight: 700
+      line-height: 1
+      color: #000
+      text-shadow: 0 1px 0 #fff
+      opacity: .2
+      margin: 8px 10px
+      &:hover
+        opacity: 0.7
+    &.danger
+      background-color: rgba(240, 188, 196, 0.93)
+      background-image: none
+      .message
+        display: block
+      .close
+        display: block
+
+img.black-white-hover
+  filter: grayscale(100%)
+  -webkit-filter: grayscale(100%)
+
+img.black-white-hover:hover
+  filter: none
+  -webkit-filter: none
+
+.pointer
+  cursor: pointer

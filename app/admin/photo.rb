@@ -26,11 +26,11 @@ ActiveAdmin.register Photo do
     end
 
     def update
-      super {|format| format.json { head :ok } }
+      super { return responce }
     end
 
     def destroy
-      super {|format| format.js { head :ok } }
+      super { return responce }
     end
 
     private
@@ -38,6 +38,16 @@ ActiveAdmin.register Photo do
     def get_hierarchy
       @hierarchy = Album.hierarchy
     end
+
+    def responce
+      errors = resource.errors.full_messages
+      render json: if errors.empty?
+        { status: 'OK' }
+      else
+        { errors: resource.errors.full_messages }
+      end
+    end
+
   end
 
   collection_action :albumable, method: :put do

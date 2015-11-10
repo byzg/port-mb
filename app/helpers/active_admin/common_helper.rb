@@ -1,18 +1,17 @@
 module ActiveAdmin::CommonHelper
 
-  def albums_wrapped_list(scope = @hierarchy, deep = '', list = [])
-    scope.each do |album, hierarchy|
-      list << {name: ("#{deep}#{album.name}"),
-               value: album.id,
-               deepest: hierarchy.empty?,
-               deep: deep.length
-              }
-      list += albums_wrapped_list(hierarchy, deep + '-')
+  def albums_wrapped_list(hierarchy = @hierarchy, deep = '', list = [])
+    hierarchy.map do |struct|
+      album = struct[:album]
+      {name: ("#{'-' * struct[:deep]}#{album['name']}"),
+       value: album['id'],
+       deepest: struct[:deepest],
+       deep: struct[:deep]
+      }
     end
-    list
   end
 
-  def albumable_select mresource
+  def albumable_options mresource
     @albums_with_photos_ids ||= Album.with_photos.pluck(:id).uniq
     @albums_wrapped_list ||= albums_wrapped_list
     options = (@albums_wrapped_list.map do |option|
@@ -35,6 +34,11 @@ module ActiveAdmin::CommonHelper
       end
       content_tag(:option, option[:name], option_params)
     end).join('').html_safe
+    options
+  end
+
+  def albumable_select mresource
+    options = albumable_options mresource
     select_tag :resource, options, include_blank: true, class: 'pull-left'
   end
 

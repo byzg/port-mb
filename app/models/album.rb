@@ -1,27 +1,26 @@
 class Album < ActiveRecord::Base
   include AlbumPhotoCommon
+  include AlbumsHierarchy
   has_many :children, class_name: 'Album', foreign_key: 'album_id', dependent: :destroy
   has_many :photos, dependent: :destroy
   belongs_to :parent, foreign_key: 'album_id', class_name: 'Album'
   belongs_to :cover, class_name: 'Photo'
 
-  validates :cover, presence: true
+  validates :cover, presence: true, unless: Proc.new {|a| a.cover_id_was.nil? }
+  validate :check_cover_between_children
   validate :should_be_near_albums
+  validate :move_forbidden
   
   scope :deepest, -> { includes(:children).where(children_albums: { id: nil }) }
   scope :with_photos, -> { joins(:photos) }
 
-  def self.hierarchy
-    find_children = Proc.new do |scope, album|
-      scope.delete(album)
-      children = scope.find_all {|al| al.album_id == album.id}
-      scope.delete_if {|al| children.map(&:id).include?(al.id) }
-      Hash[children.map {|album| [album, find_children.call(scope, album)]}]
-    end
-    all = Album.select(:id, :album_id, :name)
-    Hash[all.where(album_id: nil).map do |album|
-      [album, find_children.call(all.to_a, album)]
-    end]    
+  def children_photos
+    subalbums_ids = hierarchy.map {|data| data[:album]['id'] if data[:deepest] }.compact
+    Photo.where('album_id in (?)', subalbums_ids)
+  end
+
+  def ancestor_for?(album)
+    hierarchy.any? {|data| data[:album]['id'] == album.id }
   end
 
   private
@@ -30,4 +29,14 @@ class Album < ActiveRecord::Base
     errors.add :album_id, :should_be_near_albums if parent.try(:photos).try(:present?)
   end
 
+  def check_cover_between_children
+    if cover && children_photos.pluck(:id).exclude?(cover_id)
+      errors.add :cover, :between_children 
+    end
+  end
+
+  def move_forbidden
+    super(Album.where(cover_id: children_photos.pluck(:id)))
+  end
+ 
 end

@@ -1,5 +1,6 @@
 - class_name = mresource.class if defined?(mresource)
 .col-xs-6.col-sm-6.col-md-4.template style='display: none' class="#{class_name.to_s.downcase}"
+  .backing
   .meta.hide
     - if defined?(mresource) && mresource
       = "#{class_name}Serializer".constantize.new(mresource).to_json
@@ -14,3 +15,7 @@
         = link_to 'javascript:void(0)', class: 'btn btn-danger destroy', title: 'Удалить', method: :delete, remote: true, data: { confirm: template_confirm_message(mresource) } do
           i.glyphicon.glyphicon-trash
         end
+        - if defined?(mresource) && mresource.is_a?(Album)
+          = link_to 'javascript:void(0)', class: 'btn btn-primary coverchangeable', title: 'Изменить обложку' do
+            i.glyphicon.glyphicon-picture
+          end

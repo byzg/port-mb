@@ -6,6 +6,8 @@ ru:
     attributes:
       album:
         name: 'Название'
+        description: 'Описание'
+        parent: 'Родитель'
     errors:
       models:
         photo:
@@ -19,3 +21,5 @@ ru:
       messages:
         record_invalid: 'Запись недействительна'
         blank: '- поле не может быть пустым'
+        forbidden_moving_cover: 'Нельзя переместить обложку в альбом, не являющийся дочерним для обложенного'
+        forbidden_destroy_cover: 'Нельзя удалить обложку'
