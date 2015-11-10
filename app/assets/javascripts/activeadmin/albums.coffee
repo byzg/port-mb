@@ -7,3 +7,6 @@ $ ->
         $('.template.album').each (_, template)->
           new Template template, 'album',
             albumable: albumable
+
+    if $('body.show').length > 0
+      (new Breadcrumbs()).draw()

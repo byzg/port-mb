@@ -3,8 +3,8 @@ module ActiveAdmin::CommonHelper
   def albums_wrapped_list(hierarchy = @hierarchy, deep = '', list = [])
     hierarchy.map do |struct|
       album = struct[:album]
-      {name: ("#{'-' * struct[:deep]}#{album['name']}"),
-       value: album['id'],
+      {name: ("#{'-' * struct[:deep]}#{album[:name]}"),
+       value: album[:id],
        deepest: struct[:deepest],
        deep: struct[:deep]
       }

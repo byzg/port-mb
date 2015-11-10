@@ -16,13 +16,13 @@ describe Album do
   it '.hierarchy' do
     create_hierarchy
     should = [
-      {album: {"id"=>1, "name"=>"al1", "album_id"=>nil}, deep: 0, deepest: false},
-      {album: {"id"=>3, "name"=>"al11", "album_id"=>1}, deep: 1, deepest: true},
-      {album: {"id"=>4, "name"=>"al12", "album_id"=>1}, deep: 1, deepest: false},
-      {album: {"id"=>6, "name"=>"al121", "album_id"=>4}, deep: 2, deepest: true},
-      {album: {"id"=>7, "name"=>"al122", "album_id"=>4}, deep: 2, deepest: true},
-      {album: {"id"=>2, "name"=>"al2", "album_id"=>nil}, deep: 0, deepest: false},
-      {album: {"id"=>5, "name"=>"al21", "album_id"=>2}, deep: 1, deepest: true}]
+      {album: {id: 1, name: 'al1', album_id: nil}, deep: 0, deepest: false},
+      {album: {id: 3, name: 'al11', album_id: 1}, deep: 1, deepest: true},
+      {album: {id: 4, name: 'al12', album_id: 1}, deep: 1, deepest: false},
+      {album: {id: 6, name: 'al121', album_id: 4}, deep: 2, deepest: true},
+      {album: {id: 7, name: 'al122', album_id: 4}, deep: 2, deepest: true},
+      {album: {id: 2, name: 'al2', album_id: nil}, deep: 0, deepest: false},
+      {album: {id: 5, name: 'al21', album_id: 2}, deep: 1, deepest: true}]
     expect(Album.hierarchy).to eq should
   end
 

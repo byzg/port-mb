@@ -3,11 +3,6 @@ ActiveAdmin.register Album do
   permit_params :album_id, :cover_id, :name, :priority, :description
   scope :all
   scope('По иерархии', default: true) {|scope| scope.where(album_id: nil).includes(:cover)}
-
-  # breadcrumb do
-  #   session[:breadcrumbs] = []
-  #   session[:breadcrumbs] << link_to(resource.name, admin_album_path(resource)).html_safe
-  # end
   
   index { render partial: 'index' }
   show { render partial: 'children' }
@@ -55,7 +50,7 @@ ActiveAdmin.register Album do
     end
 
     def get_breadcrumbs
-
+      @breadcrumbs = resource.breadcrumbs.to_json
     end
   end
 
