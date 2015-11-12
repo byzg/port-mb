@@ -7,7 +7,7 @@ module AlbumsHierarchy
     scope.delete(self)
     children = scope.find_all {|al| al.album_id == id}
     scope.delete_if {|al| children.map(&:id).include?(al.id) }
-    result << { album: self.as_json(only: HIERARCHY_ATTRS), deep: deep, deepest: children.blank? }
+    result << { album: self.as_json(only: HIERARCHY_ATTRS).symbolize_keys, deep: deep, deepest: children.blank? }
     children.each {|album| album.hierarchy(scope, deep + 1, result)}
     result
   end

@@ -5,5 +5,5 @@
 end
 
 Тогда(/^не должно существовать альбомов "(.*?)"$/) do |names|
-  names.split.each {|name| expect(Album.where(name: name).size).to eq 0  }
+  expect(Album.where(name: names.split).size).to eq 0
 end

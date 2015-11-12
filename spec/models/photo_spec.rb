@@ -20,7 +20,7 @@ describe Album do
     photo.update(album_id: al122.id)
     al1.update(cover: photo)
     photo.update(album_id: al21.id)
-    expect(photo.errors.messages.keys).to include(:album_id)
+    expect(photo.errors.messages.keys).to include(:base)
   end
 
   context 'before_destroy' do

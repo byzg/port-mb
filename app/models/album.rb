@@ -15,12 +15,26 @@ class Album < ActiveRecord::Base
   scope :with_photos, -> { joins(:photos) }
 
   def children_photos
-    subalbums_ids = hierarchy.map {|data| data[:album]['id'] if data[:deepest] }.compact
+    subalbums_ids = hierarchy.map {|data| data[:album][:id] if data[:deepest] }.compact
     Photo.where('album_id in (?)', subalbums_ids)
   end
 
   def ancestor_for?(album)
-    hierarchy.any? {|data| data[:album]['id'] == album.id }
+    hierarchy.any? {|data| data[:album][:id] == album.id }
+  end
+
+  def breadcrumbs
+    hierarchy = Album.hierarchy
+    @breadcrumbs = []
+    current_id = id
+    while true
+      current = hierarchy.find {|al| al[:album][:id] == current_id }
+      @breadcrumbs << current
+      parent = hierarchy.find {|al| al[:album][:id] == current[:album][:album_id] }
+      break unless parent
+      current_id = parent[:album][:id]
+    end
+    @breadcrumbs.reverse
   end
 
   private

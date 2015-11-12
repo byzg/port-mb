@@ -6,7 +6,7 @@ module AlbumPhotoCommon
   private
 
   def move_forbidden(covered)
-    if album_id_changed?
+    if album_id_changed? && id
       _parent = try(:album) || parent
       if covered.any? {|al| !al.ancestor_for?(_parent)}
         errors.add :base, :forbidden_moving_cover 
