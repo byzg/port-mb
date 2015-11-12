@@ -37,6 +37,16 @@ class Album < ActiveRecord::Base
     @breadcrumbs.reverse
   end
 
+  def cover
+    return photo = super if photo
+    photo = Photo.new(image_file_name: Photo::MISSING_PATH)
+    image = photo.image
+    def image.url *args
+      Photo::MISSING_PATH
+    end
+    photo
+  end
+
   private
 
   def should_be_near_albums
