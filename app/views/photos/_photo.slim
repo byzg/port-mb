@@ -1,7 +1,7 @@
-li.work-item.illustration.webdesign
-  = link_to '#' do
+li.work-item
+  = link_to(photo.image.url(:medium), class: 'popup', title: photo.name) do
     .work-image
       = image_tag photo.image.url(:medium)
     .work-caption
-      h3.work-title.font-alt= photo.name
-      .work-descr.font-inc= photo.name
+      h3.work-title.font-alt
+        span.icon-magnifying-glass
