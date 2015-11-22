@@ -13,7 +13,6 @@ ActiveAdmin.register Photo do
     before_filter :get_hierarchy, only: [:new, :index]
 
     def create
-      # render json: Photo.last
       params[:photo][:image] = params[:photo][:image][0]
       super do |format|
         format.html do
