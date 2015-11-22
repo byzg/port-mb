@@ -1,7 +1,7 @@
 li.work-item
-  = link_to(photo.image.url(:medium), class: 'popup', title: photo.name) do
+  = link_to(photo.image.url(:original), class: 'popup', title: photo.name) do
     .work-image
-      = image_tag photo.image.url(:medium)
+      = image_tag photo.image.url(:original)
     .work-caption
       h3.work-title.font-alt
         span.icon-magnifying-glass
