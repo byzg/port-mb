@@ -10,6 +10,8 @@ class Album < ActiveRecord::Base
   validate :check_cover_between_children
   validate :should_be_near_albums
   validate :move_forbidden
+
+  before_create :clear_hierarchy_catche
   
   scope :deepest, -> { includes(:children).where(children_albums: { id: nil }) }
   scope :with_photos, -> { joins(:photos) }
@@ -54,13 +56,17 @@ class Album < ActiveRecord::Base
   end
 
   def check_cover_between_children
-    if cover && children_photos.pluck(:id).exclude?(cover_id)
+    if cover_id && children_photos.pluck(:id).exclude?(cover_id)
       errors.add :cover, :between_children 
     end
   end
 
   def move_forbidden
     super(Album.where(cover_id: children_photos.pluck(:id)))
+  end
+
+  def clear_hierarchy_catche
+    Album.clear_hierarchy_catche
   end
  
 end

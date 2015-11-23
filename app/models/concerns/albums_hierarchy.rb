@@ -22,6 +22,10 @@ module AlbumsHierarchy
       end
       @@hierarchy    
     end
+
+    def clear_hierarchy_catche
+      @@hierarchy = nil
+    end
   end
 
 end

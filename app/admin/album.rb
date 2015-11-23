@@ -7,6 +7,7 @@ ActiveAdmin.register Album do
   index { render partial: 'index' }
   show { render partial: 'children' }
   form do |f|
+    f.semantic_errors *f.object.errors.keys
     f.inputs do
       f.input :name
       f.input :description
@@ -16,7 +17,7 @@ ActiveAdmin.register Album do
   end
 
   controller do
-    before_filter :get_hierarchy, only: [:new, :index, :show]
+    before_filter :get_hierarchy, only: [:new, :index, :show, :create]
     before_filter :get_breadcrumbs, only: :show
 
     def show
@@ -26,7 +27,10 @@ ActiveAdmin.register Album do
     end
 
     def destroy
-      super { return render json: { status: 'OK' } } 
+      super do |format|
+        format.json { return render json: { status: 'OK' } }
+        format.json { return redirect_to admin_albums_path }
+      end
     rescue ActiveRecord::RecordNotDestroyed
       key = 'activerecord.errors.messages.forbidden_destroy_cover'
       return render json: { errors: I18n.t(key) }
