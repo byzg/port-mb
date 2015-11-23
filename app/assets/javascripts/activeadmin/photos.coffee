@@ -28,7 +28,6 @@ $ ->
           @albumable.hideGlobal()
           $photo = @opts.uploadedCnt.find(@opts.uploadedPhotoTemplateSltr)
           clone = $photo.first().clone()
-          clone.removeClass 'template'
           @opts.uploadedCnt.append clone
           @photoTemplates.push clone
 

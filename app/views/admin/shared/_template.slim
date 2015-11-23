@@ -12,7 +12,8 @@
       div.description data-meditable-empty='Описание'
       p.text-right.actions
         = albumable_select (defined?(mresource) ? mresource : Photo.new)
-        = link_to 'javascript:void(0)', class: 'btn btn-danger destroy', title: 'Удалить', method: :delete, remote: true, data: { confirm: template_confirm_message(mresource) } do
+        - if defined?(mresource)
+        = link_to 'javascript:void(0)', class: 'btn btn-danger destroy', title: 'Удалить', method: :delete, remote: true, data: { confirm: template_confirm_message(defined?(mresource) ? mresource : Photo.new) } do
           i.glyphicon.glyphicon-trash
         end
         - if defined?(mresource) && mresource.is_a?(Album)

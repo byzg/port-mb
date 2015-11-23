@@ -44,5 +44,6 @@ window.Template = class Template
       if errors = xhr['errors']
         @backing.danger(errors)
       else
+        @opts.albumable.remove @resource.id
         @$template.remove()
     @$template.on 'ajax:error', linkClass, => @backing.danger('Что то пошло не так')

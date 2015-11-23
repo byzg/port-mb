@@ -17,7 +17,7 @@ ActiveAdmin.register Album do
   end
 
   controller do
-    before_filter :get_hierarchy, only: [:new, :index, :show, :create]
+    before_filter :get_hierarchy, only: [:new, :index, :show, :create, :edit, :update]
     before_filter :get_breadcrumbs, only: :show
 
     def show
@@ -28,8 +28,8 @@ ActiveAdmin.register Album do
 
     def destroy
       super do |format|
-        format.json { return render json: { status: 'OK' } }
-        format.json { return redirect_to admin_albums_path }
+        format.json { render json: { status: 'OK' } }
+        format.html { redirect_to admin_albums_path }
       end
     rescue ActiveRecord::RecordNotDestroyed
       key = 'activerecord.errors.messages.forbidden_destroy_cover'

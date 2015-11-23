@@ -39,7 +39,11 @@ $ ->
               backing.hide()
             $select.selectpicker('refresh')
 
-
+    remove: (resourceId)->
+      @collection.splice(_.findIndex @collection, (obj, i)->
+        obj.resourceId == resourceId
+      , 1)
+      @globalCnt.hide() if @globalCnt? && @collection.length == 0   
 
     global: ($selectCnt)->
       @globalCnt = $selectCnt

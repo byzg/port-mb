@@ -11,8 +11,7 @@ $ ->
       @valueMax = parseFloat(maxValue)      
       @bar.attr('aria-valuemax', @valueMax)
       @label.html "0/#{@valueMax}"
-      if @valueMax > 1 
-        @container.show()
+      @container.show()
 
     finish: =>
       @container.hide()

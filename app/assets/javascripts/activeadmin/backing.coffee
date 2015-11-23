@@ -14,7 +14,6 @@ window.Backing = class Backing
     if @original
       @original.skipState()
     else
-      console.log @state
       @$element.removeClass(@state)
       @state = 'loading'
       @$element.addClass(@state)
