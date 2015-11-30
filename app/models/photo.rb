@@ -44,14 +44,18 @@ class Photo < ActiveRecord::Base
     end
   end
 
-  def self.refresh(style)
+  def self.refresh(style = nil)
     _count = count
     puts "--- Refresh #{_count} photos for #{style} ---"
     i = 0
     find_each do |photo|
       i += 1
       puts "---- start refresh #{i}/#{_count} photo with ID #{photo.id} ----"
-      photo.image.reprocess! style.to_sym
+      if style
+        photo.image.reprocess! style.to_sym
+      else
+        photo.image.reprocess!
+      end  
     end  
     puts "--- refresh finished ---"
   end
