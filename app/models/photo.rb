@@ -2,7 +2,7 @@ class Photo < ActiveRecord::Base
   include AlbumPhotoCommon
   RATIOS = { horizontal: '674x407#', vertical: '674x814#' }
   MISSING_PATH = '/images/grid/missing.png'
-  MODAL_WEIGHT = 0.35
+  MODAL_WEIGHT = 0.2
   has_attached_file(
       :image,
       styles: lambda { |attachment| attachment.instance.styles },
@@ -20,7 +20,7 @@ class Photo < ActiveRecord::Base
 
   def styles
     { medium: '500x500>',
-      modal: "#{(width * MODAL_WEIGHT).round}x#{(width * MODAL_WEIGHT).round}>"
+      modal: "#{(width * MODAL_WEIGHT).round}x#{(heigth * MODAL_WEIGHT).round}#"
     }.merge({grid: Photo::RATIOS[orient]})
   end
 
