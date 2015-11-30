@@ -2,7 +2,7 @@ class Photo < ActiveRecord::Base
   include AlbumPhotoCommon
   RATIOS = { horizontal: '674x407#', vertical: '674x814#' }
   MISSING_PATH = '/images/grid/missing.png'
-  MODAL_WEIGHT = 0.5
+  MODAL_WEIGHT = 0.35
   has_attached_file(
       :image,
       styles: lambda { |attachment| attachment.instance.styles },
