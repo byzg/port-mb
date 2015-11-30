@@ -2,6 +2,7 @@ class Photo < ActiveRecord::Base
   include AlbumPhotoCommon
   RATIOS = { horizontal: '674x407#', vertical: '674x814#' }
   MISSING_PATH = '/images/grid/missing.png'
+  MODAL_WEIGHT = 0.5
   has_attached_file(
       :image,
       styles: lambda { |attachment| attachment.instance.styles },
@@ -18,19 +19,41 @@ class Photo < ActiveRecord::Base
   before_destroy :exist_covered_albums?
 
   def styles
-    {medium: '500x500>'}.merge({grid: Photo::RATIOS[orient]})
+    { medium: '500x500>',
+      modal: "#{width * MODAL_WEIGHT}x#{width * MODAL_WEIGHT}>"
+    }.merge({grid: Photo::RATIOS[orient]})
   end
+
+  def geometry
+    @geometry ||= Paperclip::Geometry.from_file(tempfile)
+  end  
+
+  def width
+    image.width || (@width ||= geometry.width.to_i)
+  end
+
+  def heigth
+    image.heigth || (@height ||= geometry.width.to_i)
+  end  
 
   def orient
     if new_record?
-      tempfile = image.queued_for_write[:original]
-      tempfile.nil?
-      geometry = Paperclip::Geometry.from_file(tempfile)
-      width, height = [geometry.width.to_i, geometry.height.to_i]
       width > height ? :horizontal : :vertical
     else
       image.aspect_ratio > 1 ? :horizontal : :vertical
     end
+  end
+
+  def self.refresh(style)
+    _count = count
+    puts "--- Refresh #{_count} photos for #{style} ---"
+    i = 0
+    find_each do |photo|
+      i += 1
+      puts "---- start refresh #{i}/#{_count} photo with ID #{photo.id} ----"
+      photo.image.reprocess! style.to_sym
+    end  
+    puts "--- refresh finished ---"
   end
 
   private
@@ -47,6 +70,11 @@ class Photo < ActiveRecord::Base
     covered = Album.where(cover_id: id)
     errors.add :base, :forbidden_destroy_cover unless result = covered.empty?
     result
+  end
+
+  private
+  def tempfile
+    @tempfile ||= image.queued_for_write[:original]
   end
   
 end
