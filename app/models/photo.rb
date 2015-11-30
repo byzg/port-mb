@@ -29,11 +29,11 @@ class Photo < ActiveRecord::Base
   end  
 
   def width
-    image.width || (@width ||= geometry.width.to_i)
+    image.try(:width) || (@width ||= geometry.width.to_i)
   end
 
   def heigth
-    image.heigth || (@height ||= geometry.width.to_i)
+    image.try(:heigth) || (@height ||= geometry.width.to_i)
   end  
 
   def orient
