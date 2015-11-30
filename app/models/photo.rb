@@ -20,7 +20,7 @@ class Photo < ActiveRecord::Base
 
   def styles
     { medium: '500x500>',
-      modal: "#{(width * MODAL_WEIGHT).round}x#{(heigth * MODAL_WEIGHT).round}#"
+      modal: "#{(width * MODAL_WEIGHT).round}x#{(height * MODAL_WEIGHT).round}#"
     }.merge({grid: Photo::RATIOS[orient]})
   end
 
@@ -29,11 +29,11 @@ class Photo < ActiveRecord::Base
   end  
 
   def width
-    image.try(:width) || (@width ||= geometry.width.to_i)
+    image.width || (@width ||= geometry.width.to_i)
   end
 
-  def heigth
-    image.try(:heigth) || (@height ||= geometry.width.to_i)
+  def height
+    image.height || (@height ||= geometry.height.to_i)
   end  
 
   def orient
