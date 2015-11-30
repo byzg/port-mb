@@ -51,11 +51,15 @@ class Photo < ActiveRecord::Base
     find_each do |photo|
       i += 1
       puts "---- start refresh #{i}/#{_count} photo with ID #{photo.id} ----"
-      if style
-        photo.image.reprocess! style.to_sym
-      else
-        photo.image.reprocess!
-      end  
+      begin
+        if style
+          photo.image.reprocess! style.to_sym
+        else
+          photo.image.reprocess!
+        end 
+      rescue
+        p $!
+      end 
     end  
     puts "--- refresh finished ---"
   end
