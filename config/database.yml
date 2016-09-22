@@ -2,11 +2,10 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: 5
-  username: byzgaev
-  password:
 
 development:
   <<: *default
+  username: <%= ENV['DB_USERNAME'] %>
   database: port-mb_development
 
 test: &test

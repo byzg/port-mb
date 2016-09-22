@@ -3,9 +3,9 @@ section.module-small
   .container
     .row
       .col-sm-6
-        h2.module-title.font-alt Someone quote
+        h2.module-title.font-alt= t('.quote.title')
       .col-sm-6
         blockquote.font-serif.align-right
-          p The languages only differ in their grammar, their pronunciation and their most common words. Everyone realizes why a new common language would be desirable: one could refuse to pay expensive translators.
-          p.font-inc.font-uppercase - Thomas Anderson
+          p= t('.quote.text')
+          p.font-inc.font-uppercase= t('.quote.author')
 = render template: 'home/about'

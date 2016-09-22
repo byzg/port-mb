@@ -12,16 +12,14 @@ html
   body
 
     .page-loader
-      .loader Loading...
+      .loader= t('.loading')
     = render partial: 'layouts/navbar'
 
-    section#home.module-hero.module-parallax.module-fade.module-full-height.bg-dark-30.hero-2 data-background="/images/hero-2.jpg"
+    section#home.module-hero.module-parallax.module-fade.module-full-height.bg-dark-30.hero-2 data-background="/images/hero-0.jpg"
       .hs-caption.container
         .caption-content
-          .hs-title-size-4.font-alt.m-b-30.hero-2
-            | James Vortex
-          .hs-title-size-1.font-inc.hero-2
-            | Professional photographer
+          .hs-title-size-4.font-alt.m-b-30.hero-2= t('.hero.name')
+          .hs-title-size-1.font-inc.hero-2= t('.hero.profession')
 
     .wrapper
       section.module-small.p-t-20.p-b-0.p-t-sm-0
@@ -44,31 +42,24 @@ html
       section.module-small
         .container
           .row
-            /! CONTENT BOX
+            .col-sm-4
+              = link_to('https://www.google.ru/maps/search/%D1%81%D0%B4%D0%BD%D0%B8%D1%82/@54.1891869,45.1585549,13z', target: '_blank') do
+                .content-box
+                  .content-box-icon
+                    span.icon-map-pin
+                  .content-box-title.font-inc= t('.contacts.address')
             .col-sm-4
               .content-box
-                .content-box-icon
-                  span.icon-map-pin
-                .content-box-title.font-inc
-                  | 007 Steet, City, USA
-            /! /CONTENT BOX
-            /! CONTENT BOX
+                = tel_to t('.contacts.phone') do
+                  .content-box-icon
+                    span.icon-phone
+                  .content-box-title.font-inc= t('.contacts.phone')
             .col-sm-4
               .content-box
-                .content-box-icon
-                  span.icon-phone
-                .content-box-title.font-inc
-                  | +1 234 567 89 00
-            /! /CONTENT BOX
-            /! CONTENT BOX
-            .col-sm-4
-              .content-box
-                .content-box-icon
-                  span.icon-envelope
-                .content-box-title.font-inc
-                  | semantic@email.com
-            /! /CONTENT BOX
-      /! /CONTACT
+                = mail_to t('.contacts.email') do
+                  .content-box-icon
+                    span.icon-envelope
+                  .content-box-title.font-inc= t('.contacts.email')
       /! FOOTER
       footer.footer
         .container
