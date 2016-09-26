@@ -3,12 +3,14 @@ ru:
     application:
       loading: 'Loading...'
       hero:
-        name: 'Бызгаева Мария'
-        profession: 'Профессиональный фотограф'
+        name: 'Мария Сергеевна'
+        profession: 'Фотограф-видоискатель'
       contacts:
         address: 'Саранск, ул.Пролетарская, 39'
         phone: '+7 987 680 14 40'
         email: 'maria.serg91@gmail.com'
+    navbar:
+      brand: 'Juicyview'
   home:
     index:
       quote:
