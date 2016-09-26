@@ -40,7 +40,8 @@ class Album < ActiveRecord::Base
   end
 
   def cover
-    return photo = super if photo
+    photo = super
+    return photo if photo
     photo = Photo.new(image_file_name: Photo::MISSING_PATH)
     image = photo.image
     def image.url *args
