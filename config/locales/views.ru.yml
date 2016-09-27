@@ -4,13 +4,13 @@ ru:
       loading: 'Loading...'
       hero:
         name: 'Мария Сергеевна'
-        profession: 'Фотограф-видоискатель'
+        profession: 'Профессиональный фотограф'
       contacts:
         address: 'Саранск, ул.Пролетарская, 39'
         phone: '+7 987 680 14 40'
         email: 'maria.serg91@gmail.com'
     navbar:
-      brand: 'Juicyview'
+      brand: 'Photosaransk'
   home:
     index:
       quote:

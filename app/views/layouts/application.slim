@@ -15,12 +15,12 @@ html
       .loader= t('.loading')
     = render partial: 'layouts/navbar'
 
-    section#home.module-hero.module-parallax.module-fade.module-full-height.bg-dark-30.hero-2[
+    section#home.module-hero.module-parallax.module-fade.module-full-height.bg-dark-30[
       data-background="/images/hero-0.jpg"]
       .hs-caption.container
         .caption-content
-          .hs-title-size-4.font-alt.m-b-30.hero-2= t('.hero.name')
-          .hs-title-size-1.font-inc.hero-2= t('.hero.profession')
+          .hs-title-size-4.font-alt.m-b-30= t('.hero.name')
+          .hs-title-size-1.font-inc= t('.hero.profession')
 
     .wrapper
       section.module-small.p-t-20.p-b-0.p-t-sm-0
