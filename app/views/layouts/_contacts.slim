@@ -1,0 +1,21 @@
+section.module-small
+  .container
+    .row
+      .col-sm-4
+        = link_to('https://www.google.ru/maps/search/%D1%81%D0%B4%D0%BD%D0%B8%D1%82/@54.1891869,45.1585549,13z', target: '_blank') do
+          .content-box
+            .content-box-icon
+              span.icon-map-pin
+            .content-box-title.font-inc= t('.address')
+      .col-sm-4
+        .content-box
+          = tel_to t('.contacts.phone') do
+            .content-box-icon
+              span.icon-phone
+            .content-box-title.font-inc= t('.phone')
+      .col-sm-4
+        .content-box
+          = mail_to t('.email') do
+            .content-box-icon
+              span.icon-envelope
+            .content-box-title.font-inc= t('.email')

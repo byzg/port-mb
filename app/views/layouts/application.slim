@@ -14,13 +14,7 @@ html
     .page-loader
       .loader= t('.loading')
     = render partial: 'layouts/navbar'
-
-    section#home.module-hero.module-parallax.module-fade.module-full-height.bg-dark-30[
-      data-background="/images/hero-0.jpg"]
-      .hs-caption.container
-        .caption-content
-          .hs-title-size-4.font-alt.m-b-30= t('.hero.name')
-          .hs-title-size-1.font-inc= t('.hero.profession')
+    = render partial: 'layouts/jumbotron'
 
     .wrapper
       section.module-small.p-t-20.p-b-0.p-t-sm-0
@@ -39,28 +33,8 @@ html
                 li
                   a.wow.fadeInUp data-filter=".webdesign" data-wow-delay="0.8s" href="#"  Web Design
         = yield
-      
-      section.module-small
-        .container
-          .row
-            .col-sm-4
-              = link_to('https://www.google.ru/maps/search/%D1%81%D0%B4%D0%BD%D0%B8%D1%82/@54.1891869,45.1585549,13z', target: '_blank') do
-                .content-box
-                  .content-box-icon
-                    span.icon-map-pin
-                  .content-box-title.font-inc= t('.contacts.address')
-            .col-sm-4
-              .content-box
-                = tel_to t('.contacts.phone') do
-                  .content-box-icon
-                    span.icon-phone
-                  .content-box-title.font-inc= t('.contacts.phone')
-            .col-sm-4
-              .content-box
-                = mail_to t('.contacts.email') do
-                  .content-box-icon
-                    span.icon-envelope
-                  .content-box-title.font-inc= t('.contacts.email')
+
+      = render partial: 'layouts/contacts'
       /! FOOTER
       footer.footer
         .container
