@@ -5,19 +5,37 @@
       | A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring which I enjoy with my whole heart.
 .row
   .col-sm-6.col-sm-offset-3
-    form#contact-form novalidate="" role="form"
+    = form_for @feedback, html: { id: 'contact-form', novalidate: true, role: :form } do |f|
       .form-group
-        label.sr-only for="cname"  Name
-        input#cname.form-control aria-invalid="false" data-validation-required-message=("Please enter your name.") name="cname" placeholder="Name" required="" type="text" /
+        = f.label :name, class: 'sr-only'
+        = f.text_field :name, class: 'form-control',
+                              'data-validation-required-message' => t('.validation.name'),
+                              aria_invalid: false,
+                              placeholder: Feedback.human_attribute_name(:name),
+                              required: true
         p.help-block.text-danger
-      .form-group
-        label.sr-only for="cemail"  Your Email
-        input#cemail.form-control data-validation-required-message=("Please enter your email address.") name="cemail" placeholder=("Your E-mail") required="" type="email" /
-        p.help-block.text-danger
-      .form-group
-        textarea#cmessage.form-control data-validation-required-message=("Please enter your message.") name="cmessage" placeholder="Message" required="" rows="7"
-        p.help-block.text-danger
-      button.btn.btn-round.btn-g type="submit"  Submit
 
-      /! Ajax response
+      .form-group
+        = f.label :email, class: 'sr-only'
+        = f.text_field :name, class: 'form-control',
+                              placeholder: Feedback.human_attribute_name(:email),
+                              'data-validation-email-message' => t('.validation.email'),
+                              type: 'email'
+        p.help-block.text-danger
+
+      .form-group
+        = f.label :phone, class: 'sr-only'
+        = f.text_field :phone, class: 'form-control', placeholder: Feedback.human_attribute_name(:phone)
+
+      .form-group
+        = f.label :message, class: 'sr-only'
+        = f.text_area :message, class: 'form-control',
+                                'data-validation-required-message' => t('.validation.message'),
+                                placeholder: Feedback.human_attribute_name(:message),
+                                required: true,
+                                rows: 7
+        p.help-block.text-danger
+
+      button.btn.btn-round.btn-g type='submit'= t('.submit')
+
     #contact-response.ajax-response.font-alt

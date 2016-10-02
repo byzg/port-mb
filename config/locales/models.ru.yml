@@ -3,11 +3,17 @@ ru:
     models:
      album: 'Альбом'
      photo: 'Фото'
+     feedback: 'Обратная связь'
     attributes:
       album:
         name: 'Название'
         description: 'Описание'
         parent: 'Родитель'
+      feedback:
+        name: 'Имя'
+        email: 'Email'
+        phone: 'Номер телефона'
+        message: 'Сообщение'
     errors:
       models:
         photo:
