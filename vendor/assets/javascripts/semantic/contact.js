@@ -14,7 +14,7 @@
 			submitSuccess: function($form, event) {
 				event.preventDefault();
 
-				var submit          = $('#contact-form submit');
+				var submit          = $form.find('submit');
 				var ajaxResponse    = $('#contact-response');
 
 				var name            = $("input#cname").val();
@@ -23,12 +23,12 @@
 
 				$.ajax({
 					type: 'POST',
-					url: 'assets/php/contact.php',
+					url: $form.attr('action'),
 					dataType: 'json',
 					data: {
 						name: name,
 						email: email,
-						message: message,
+						message: message
 					},
 					cache: false,
 					beforeSend: function(result) {
