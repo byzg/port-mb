@@ -17,10 +17,10 @@
 
       .form-group
         = f.label :email, class: 'sr-only'
-        = f.text_field :name, class: 'form-control',
-                              placeholder: Feedback.human_attribute_name(:email),
-                              'data-validation-email-message' => t('.validation.email'),
-                              type: 'email'
+        = f.text_field :email, class: 'form-control',
+                               placeholder: Feedback.human_attribute_name(:email),
+                               'data-validation-email-message' => t('.validation.email'),
+                               type: 'email'
         p.help-block.text-danger
 
       .form-group

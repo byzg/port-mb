@@ -17,19 +17,11 @@
 				var submit          = $form.find('submit');
 				var ajaxResponse    = $('#contact-response');
 
-				var name            = $("input#cname").val();
-				var email           = $("input#cemail").val();
-				var message         = $("textarea#cmessage").val();
-
 				$.ajax({
 					type: 'POST',
 					url: $form.attr('action'),
 					dataType: 'json',
-					data: {
-						name: name,
-						email: email,
-						message: message
-					},
+					data: $form.serialize(),
 					cache: false,
 					beforeSend: function(result) {
 						submit.empty();
