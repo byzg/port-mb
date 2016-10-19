@@ -5,6 +5,7 @@ class FeedbackNotifier
   end
 
   def send
+    FeedbackMailer.admins(@feedback).deliver_later
     ADMINS.each do |admin|
       vk(admin)
     end

@@ -1,0 +1,3 @@
+ru:
+  feedback_mailer:
+    subject: 'Новый фидбек на %{domain}'

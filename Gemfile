@@ -17,6 +17,7 @@ group :development, :test do
   gem 'byebug'
   gem 'spring'
   gem 'dotenv-rails'
+  gem 'mailcatcher'
 end
 
 group :test do
