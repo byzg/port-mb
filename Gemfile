@@ -61,4 +61,4 @@ gem 'bootstrap-select-rails'
 gem 'rack-jquery-params', require: 'rack/jquery-params', github: 'byzg/rack-jquery-params'
 gem 'active_model_serializers'
 gem 'tel_to_helper'
-
+gem 'typhoeus'
