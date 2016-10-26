@@ -1,3 +1,12 @@
 ru:
   feedback_mailer:
-    subject: 'Новый фидбек на %{domain}'
+    admins:
+      subject: 'Новый фидбек на %{domain}'
+      text: >
+        Вам пришёл новый фидбек!
+        Имя:        %{name}
+        Email:      %{email}
+        Телефон:    %{phone}
+        Сообщение:  %{message}
+
+        Посмотреть его в админке можно по адресу: %{url}

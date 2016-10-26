@@ -1,1 +1,5 @@
-= t('.message', name: @feedback.name)
+= t('.text', name: @feedback.name,
+             email: @feedback.email,
+             phone: @feedback.phone,
+             message: @feedback.message,
+             url: admin_feedback_url(@feedback))
